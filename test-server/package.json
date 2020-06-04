@@ -13,6 +13,7 @@
   "dependencies": {
     "@suldashi/lame": "^1.2.5",
     "express": "^4.17.1",
+    "fluent-ffmpeg": "^2.1.2",
     "node-audiorecorder": "^2.0.1",
     "nodemon": "^2.0.4",
     "sonos": "^1.13.0"
