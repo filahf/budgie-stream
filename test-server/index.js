@@ -16,7 +16,6 @@ const audioRecorder = new AudioRecorder(
 );
 
 var audioStream = audioRecorder.start();
-//audioRecorder.start();
 process.stdin.resume();
 app.get("/stream.mp3", function (req, res) {
   res.type("mp3");
