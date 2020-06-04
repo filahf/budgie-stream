@@ -1,8 +1,9 @@
 const express = require("express");
 const app = express();
 const port = 3000;
-var { Encoder, STEREO } = require("@suldashi/lame");
 const { Sonos } = require("sonos");
+var { Decoder } = require("@suldashi/lame");
+const AudioRecorder = require("node-audiorecorder");
 
 //192.168.0.48
 
@@ -13,8 +14,6 @@ const fs = require("fs"),
 
 // Constants.
 const DIRECTORY = "examples-recordings";
-
-const AudioRecorder = require("node-audiorecorder");
 
 const audioRecorder = new AudioRecorder(
   {
@@ -43,33 +42,12 @@ console.log("Writing new recording file at: ", fileName);
 const fileStream = fs.createWriteStream(fileName, { encoding: "binary" });
 
 // Start and write to the file.
-audioRecorder.start().stream().pipe(fileStream);
+//audioRecorder.start().stream().pipe(fileStream);
 
-// Log information on the following events
-audioRecorder.stream().on("close", function (code) {
-  console.warn("Recording closed. Exit code: ", code);
-});
-audioRecorder.stream().on("end", function () {
-  console.warn("Recording ended.");
-});
-audioRecorder.stream().on("error", function () {
-  console.warn("Recording error.");
-});
 // Write incoming data out the console.
 // audioRecorder.stream().on(`data`, function (chunk) {
 //   console.log(chunk);
 // });
-
-var encoder = new Encoder({
-  // input
-  channels: 2, // 2 channels (left and right)
-  bitDepth: 16, // 16-bit samples
-  sampleRate: 44100, // 44,100 Hz sample rate
-
-  bitRate: 128,
-  outSampleRate: 22050,
-  mode: STEREO,
-});
 
 device
   .play("https://192.168.0.48:3000/stream.mp3")
@@ -87,12 +65,11 @@ device.getVolume().then((volume) => console.log(`current volume = ${volume}`));
 // Keep process alive.
 process.stdin.resume();
 console.warn("Press ctrl+c to exit.");
-app.get("/stream.mp3", function (req, res) {
+app.get("/stream.wav", function (req, res) {
   res.set({
-    "Content-Type": "audio/mpeg",
-    "Transfer-Encoding": "chunked",
+    "Content-Type": "audio/wav",
   });
-  audioRecorder.stream().pipe(res);
+  audioRecorder.start().stream().pipe(res);
 });
 
 app.get("/", (req, res) => res.send("Hello World!"));
