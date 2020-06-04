@@ -1,7 +1,4 @@
 # stream-to-sonos
-Run instructions
-clone the repo
-
 ## The test server
 Express server.
 
