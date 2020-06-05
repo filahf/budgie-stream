@@ -1,5 +1,6 @@
 (function () {
   "use strict";
+  var cors = require("cors");
   var express = require("express");
   var http = require("http");
   var icecast = require("icecast-stack");
@@ -19,8 +20,10 @@
     BYTES_PER_SECOND = SAMPLE_RATE * BLOCK_ALIGN;
 
   var Server = function (inputStream, opts) {
+    console.log(this.server);
     var app = express();
     this.app = app;
+    app.use(cors());
     app.use("/sonos", sonosRoutes);
     this.serverPort = false;
     this.inputStream = inputStream;
@@ -117,6 +120,7 @@
         }
       }.bind(this)
     );
+    this.io = require("./sockets.js").listen(this.server);
   };
 
   Server.prototype.setInputStream = function (inputStream) {
