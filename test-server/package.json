@@ -11,9 +11,10 @@
   "author": "Filip Åhfelt",
   "license": "ISC",
   "dependencies": {
+    "@suldashi/lame": "^1.2.5",
     "express": "^4.17.1",
-    "fluent-ffmpeg": "^2.1.2",
-    "naudiodon": "^2.2.1",
+    "icecast-stack": "^0.3.0",
+    "ip": "^1.1.5",
     "node-audiorecorder": "^2.0.1",
     "nodemon": "^2.0.4",
     "sonos": "^1.13.0"
