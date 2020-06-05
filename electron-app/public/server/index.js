@@ -1,20 +1,34 @@
 (function () {
-  'use strict';
-  let express = require('express');
-  var cors = require('cors');
-  const http = require('http');
+  "use strict";
+  var NicerCast = require("./nicercast.js");
+  const { Sonos } = require("sonos");
+  const AudioRecorder = require("node-audiorecorder");
+  const device = new Sonos("192.168.0.42");
+  var ip = require("ip");
 
-  const port = process.env.PORT || 5000;
+  const audioRecorder = new AudioRecorder(
+    {
+      program: process.platform === "win32" ? "sox" : "rec",
+      silence: 0,
+    },
+    console
+  );
 
-  const app = express();
-  const server = http.createServer(app);
-  app.use(cors());
+  var server = new NicerCast(audioRecorder.start().stream(), {});
+  server.start(5000);
 
-  app.get('/', function (req, res) {
-    res.send('Hello world! Filip Åhfelt here!');
-  });
+  function play() {
+    device
+      .play("x-rincon-mp3radio://192.168.0.48:5000/stream.mp3")
+      .then((success) => {
+        console.log("Yeay");
+      })
+      .catch((err) => {
+        console.log("Error occurred %j", err);
+      });
+  }
 
-  server.listen(port, () => console.log(`Listening on port ${port}`));
+  setTimeout(play, 4500);
 
-  module.exports = app;
+  //module.exports = app;
 })();
