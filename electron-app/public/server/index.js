@@ -1,7 +1,6 @@
 (function () {
   "use strict";
-  var NicerCast = require("./nicercast.js");
-  const { Sonos } = require("sonos");
+  var NicerCast = require("./server.js");
   const AudioRecorder = require("node-audiorecorder");
   const device = new Sonos("192.168.0.42");
   var ip = require("ip");
