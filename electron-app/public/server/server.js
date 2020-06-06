@@ -120,7 +120,7 @@
         }
       }.bind(this)
     );
-    this.io = require("./sockets.js").listen(this.server);
+    //this.io = require("./sockets.js").listen(this.server);
   };
 
   Server.prototype.setInputStream = function (inputStream) {
@@ -133,7 +133,12 @@
     this.metadata = metadata;
   };
 
+  Server.prototype.server = function () {
+    return this.server;
+  };
+
   Server.prototype.stop = function () {
+    console.log("STOPPING");
     try {
       this.server.close();
     } catch (err) {}
