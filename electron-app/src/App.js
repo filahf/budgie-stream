@@ -1,28 +1,22 @@
-import React from "react";
-import socketIOClient from "socket.io-client";
-import "./App.css";
-const { desktopCapturer } = window.require("electron");
+import React from 'react';
+import socketIOClient from 'socket.io-client';
+import './App.css';
+const { desktopCapturer } = window.require('electron');
 //const { ipcRender } = window.require('electron');
-const ENDPOINT = "localhost:5001";
+const ENDPOINT = 'localhost:5001';
 const socket = socketIOClient(ENDPOINT);
 
 desktopCapturer
-  .getSources({ types: ["window", "screen", "Desktop"] })
+  .getSources({ types: ['window', 'screen', 'Desktop'] })
   .then(async (sources) => {
     for (const source of sources) {
       console.log(sources);
-      if (source.name === "Entire Screen") {
+      if (source.name === 'Screen 1') {
         try {
-          const stream = await navigator.mediaDevices
-            .getUserMedia({ audio: true })
-            .then((mediaStream) => {
-              var mediaRecorder = new MediaRecorder(mediaStream);
-              mediaRecorder.ondataavailable = (e) => {
-                console.log(e.data);
-                socket.emit("stream", e.data);
-              };
-            });
-          console.log(stream);
+          const stream = await navigator.mediaDevices.getUserMedia({
+            audio: true,
+          });
+          handleStream(stream);
         } catch (e) {
           console.log(e);
         }
@@ -31,18 +25,48 @@ desktopCapturer
     }
   });
 
+const handleStream = (stream) => {
+  var audioContext = window.AudioContext;
+  var context = new audioContext();
+  var audioInput = context.createMediaStreamSource(stream);
+  var bufferSize = 2048;
+  // create a javascript node
+  var recorder = context.createScriptProcessor(bufferSize, 1, 1);
+  // specify the processing function
+  recorder.onaudioprocess = recorderProcess;
+  // connect stream to our recorder
+  audioInput.connect(recorder);
+  // connect our recorder to the previous destination
+  recorder.connect(context.destination);
+};
+
+function convertFloat32ToInt16(buffer) {
+  let l = buffer.length;
+  let buf = new Int16Array(l);
+  while (l--) {
+    buf[l] = Math.min(1, buffer[l]) * 0x7fff;
+  }
+  return buf.buffer;
+}
+
+function recorderProcess(e) {
+  var left = e.inputBuffer.getChannelData(0);
+  socket.emit('audioStream', convertFloat32ToInt16(left));
+  //console.log(convertFloat32ToInt16(left));
+}
+
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
+    <div className='App'>
+      <header className='App-header'>
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
         <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+          className='App-link'
+          href='https://reactjs.org'
+          target='_blank'
+          rel='noopener noreferrer'
         >
           Learn React
         </a>

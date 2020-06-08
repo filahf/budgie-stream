@@ -1,13 +1,13 @@
 (function () {
-  "use strict";
-  var cors = require("cors");
-  var express = require("express");
-  var http = require("http");
-  var icecast = require("icecast-stack");
-  var ip = require("ip");
-  var lame = require("@suldashi/lame");
-  var stream = new require("stream");
-  var sonosRoutes = require("./sonosRoutes.js");
+  'use strict';
+  var cors = require('cors');
+  var express = require('express');
+  var http = require('http');
+  var icecast = require('icecast-stack');
+  var ip = require('ip');
+  var lame = require('@suldashi/lame');
+  var stream = new require('stream');
+  var sonosRoutes = require('./sonosRoutes.js');
 
   // 16-bit signed samples
   var SAMPLE_SIZE = 16,
@@ -24,12 +24,12 @@
     var app = express();
     this.app = app;
     app.use(cors());
-    app.use("/sonos", sonosRoutes);
+    app.use('/sonos', sonosRoutes);
     this.serverPort = false;
     this.inputStream = inputStream;
-    app.disable("x-powered-by");
+    app.disable('x-powered-by');
 
-    opts.name = "Nicercast";
+    opts.name = 'Nicercast';
 
     var throttleStream = stream.PassThrough();
     this._internalStream = throttleStream;
@@ -40,30 +40,30 @@
       var addr = ip.address();
 
       res.status(200);
-      res.set("Content-Type", "audio/x-mpegurl");
-      res.send("http://" + addr + ":" + this.serverPort + "/listen");
+      res.set('Content-Type', 'audio/x-mpegurl');
+      res.send('http://' + addr + ':' + this.serverPort + '/listen');
     }.bind(this);
 
-    app.get("/", playlistEndpoint);
-    app.get("/listen.m3u", playlistEndpoint);
-    app.get("/stream.mp3", playlistEndpoint);
+    app.get('/', playlistEndpoint);
+    app.get('/listen.m3u', playlistEndpoint);
+    app.get('/stream.mp3', playlistEndpoint);
 
     // audio endpoint
     app.get(
-      "/listen",
+      '/listen',
       function (req, res, next) {
-        var acceptsMetadata = req.headers["icy-metadata"] === 1;
-        var parsed = require("url").parse(req.url, true);
+        var acceptsMetadata = req.headers['icy-metadata'] === 1;
+        var parsed = require('url').parse(req.url, true);
         var addr = ip.address();
 
         // generate response header
         var headers = {
-          "Content-Type": "audio/mpeg",
-          Connection: "close",
+          'Content-Type': 'audio/mpeg',
+          Connection: 'close',
         };
 
         if (acceptsMetadata) {
-          headers["icy-metaint"] = 8192;
+          headers['icy-metaint'] = 8192;
         }
 
         res.writeHead(200, headers);
@@ -83,7 +83,7 @@
 
         var prevMetadata = 0;
         encoder.on(
-          "data",
+          'data',
           function (chunk) {
             if (acceptsMetadata && prevMetadata != this.metadata) {
               res.queueMetadata(this.metadata || opts.name);
@@ -98,11 +98,11 @@
           encoder.write(chunk);
         };
 
-        throttleStream.on("data", callback);
+        throttleStream.on('data', callback);
 
-        req.connection.on("close", function () {
+        req.connection.on('close', function () {
           encoder.end();
-          throttleStream.removeListener("data", callback);
+          throttleStream.removeListener('data', callback);
         });
       }.bind(this)
     );
@@ -113,14 +113,14 @@
     this.server = http.createServer(this.app).listen(
       this.serverPort,
       function () {
+        console.log('Https App started');
         this.serverPort = this.server.address().port;
 
-        if (callback && typeof callback === "function") {
+        if (callback && typeof callback === 'function') {
           callback(this.serverPort);
         }
       }.bind(this)
     );
-    //this.io = require("./sockets.js").listen(this.server);
   };
 
   Server.prototype.setInputStream = function (inputStream) {
@@ -138,7 +138,7 @@
   };
 
   Server.prototype.stop = function () {
-    console.log("STOPPING");
+    console.log('STOPPING');
     try {
       this.server.close();
     } catch (err) {}

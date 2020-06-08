@@ -21,7 +21,9 @@
     "react-scripts": "3.4.1",
     "socket.io": "^2.3.0",
     "socket.io-client": "^2.3.0",
-    "sonos": "^1.13.0"
+    "sonos": "^1.13.0",
+    "streamifier": "^0.1.1",
+    "wav": "^1.0.2"
   },
   "scripts": {
     "react-start": "react-scripts start",
@@ -52,7 +54,7 @@
     "electron": "^9.0.0",
     "electron-builder": "^22.7.0",
     "electron-rebuild": "^1.11.0",
-    "wait-on": "^5.0.0",
-    "typescript": "^3.9.5"
+    "typescript": "^3.9.5",
+    "wait-on": "^5.0.0"
   }
 }
