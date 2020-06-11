@@ -6,24 +6,22 @@ const { desktopCapturer } = window.require('electron');
 const ENDPOINT = 'localhost:5001';
 const socket = socketIOClient(ENDPOINT);
 
-desktopCapturer
-  .getSources({ types: ['window', 'screen', 'Desktop'] })
-  .then(async (sources) => {
-    for (const source of sources) {
-      console.log(sources);
-      if (source.name === 'Screen 1') {
-        try {
-          const stream = await navigator.mediaDevices.getUserMedia({
-            audio: true,
-          });
-          handleStream(stream);
-        } catch (e) {
-          console.log(e);
-        }
-        return;
+desktopCapturer.getSources({ types: ['screen'] }).then(async (sources) => {
+  for (const source of sources) {
+    console.log(sources);
+    if (source.name === 'Screen 1') {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({
+          audio: true,
+        });
+        handleStream(stream);
+      } catch (e) {
+        console.log(e);
       }
+      return;
     }
-  });
+  }
+});
 
 const handleStream = (stream) => {
   var audioContext = window.AudioContext;
