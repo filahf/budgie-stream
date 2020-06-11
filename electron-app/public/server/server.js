@@ -12,7 +12,7 @@
   // 16-bit signed samples
   var SAMPLE_SIZE = 16,
     CHANNELS = 1,
-    SAMPLE_RATE = 44100;
+    SAMPLE_RATE = 48000;
 
   // If we're getting raw PCM data as expected, calculate the number of bytes
   // that need to be read for `1 Second` of audio data.
