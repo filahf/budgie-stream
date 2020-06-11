@@ -12,7 +12,16 @@ desktopCapturer.getSources({ types: ['screen'] }).then(async (sources) => {
     if (source.name === 'Screen 1') {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({
-          audio: true,
+          audio: {
+            mandatory: {
+              chromeMediaSource: 'desktop',
+            },
+          },
+          video: {
+            mandatory: {
+              chromeMediaSource: 'desktop',
+            },
+          },
         });
         handleStream(stream);
       } catch (e) {
@@ -24,9 +33,11 @@ desktopCapturer.getSources({ types: ['screen'] }).then(async (sources) => {
 });
 
 const handleStream = (stream) => {
+  const audioTrack = new MediaStream([stream.getTracks()[0]]);
+  console.log(stream.getTracks());
   var audioContext = window.AudioContext;
   var context = new audioContext();
-  var audioInput = context.createMediaStreamSource(stream);
+  var audioInput = context.createMediaStreamSource(audioTrack);
   var bufferSize = 2048;
   // create a javascript node
   var recorder = context.createScriptProcessor(bufferSize, 1, 1);
