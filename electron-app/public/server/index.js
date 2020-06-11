@@ -33,7 +33,7 @@
         console.log('Error occurred %j', err);
       });
   }
-  setTimeout(play, 40);
+  play();
 
   //module.exports = app;
 })();
