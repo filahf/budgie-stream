@@ -13,3 +13,19 @@ yarn dev
 ## The app
 Electron based for cross-platform support.
 Boilerplate available [here](https://github.com/filahf/react-electron-express-boilerplate)
+
+### Common errors
+<details>
+  <summary>Node module was built with the wrong version</summary>
+  Run electron rebuild
+
+```sh
+$(npm bin)/electron-rebuild
+```
+
+Or if you're on Windows:
+
+```sh
+.\node_modules\.bin\electron-rebuild.cmd
+```
+</details>
