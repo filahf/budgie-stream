@@ -1,41 +1,43 @@
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import {
   CardWrapper,
   CardHeader,
   CardHeading,
   CardBody,
-  CardIcon,
-  CardFieldset,
-  CardInput,
-  CardOptionsItem,
-  CardOptions,
-  CardOptionsNote,
-  CardButton,
-  CardLink,
 } from './componets/Card';
 
+const dummyData = {
+  devices: [
+    { name: 'Sonos 1', ip: '192.168.0.1', selected: false },
+    { name: 'Sonos 2', ip: '192.168.0.2', selected: false },
+    { name: 'Sonos 3', ip: '192.168.0.3', selected: false },
+    { name: 'Sonos 4', ip: '192.168.0.4', selected: false },
+  ],
+};
+
 const SonosList = () => {
-  return (
-    <>
-      <CardWrapper>
+  const [state, setState] = useState(dummyData);
+
+  const toggleSelection = (deviceIp) => {
+    const deviceIndex = state.devices.findIndex(
+      (device) => device.ip === deviceIp
+    );
+    state.devices[deviceIndex].selected = !state.devices[deviceIndex].selected;
+    //setState(state);
+    console.log(state);
+  };
+  const deviceList = useMemo(() => {
+    return state.devices.map((x) => (
+      <CardWrapper primary={x.selected} onClick={() => toggleSelection(x.ip)}>
         <CardHeader>
-          <CardHeading>Device</CardHeading>
+          <CardHeading>{x.name}</CardHeading>
         </CardHeader>
-
-        <CardBody>
-          <CardFieldset>or sign up with</CardFieldset>
-
-          <CardFieldset>
-            <CardButton type='button'>Check</CardButton>
-          </CardFieldset>
-
-          <CardFieldset>
-            <CardLink>I already have an account</CardLink>
-          </CardFieldset>
-        </CardBody>
+        <CardBody></CardBody>
       </CardWrapper>
-    </>
-  );
+    ));
+  }, [state, toggleSelection]);
+
+  return <>{deviceList}</>;
 };
 
 export default SonosList;
