@@ -1,20 +1,17 @@
 # stream-to-sonos
-## The test server
-Express server.
-
-Will capture microphone audio and broadcast to `http:localhost:3000/stream.mp3`. Access the stream on a device on the same LAN by replacing localhost with your local ip address.
+#### TODO
+- [ ] Switch from sockets to IPC to improve perfomance
+- [ ] React frontend
+- [ ] Refraction
+- [ ] Documentation
+- [ ] Testing
 ##### Run instructions
 ```
-cd test-server
+cd electron-app
 yarn install
-yarn dev
+yarn start
 ```
-
-## The app
-Electron based for cross-platform support.
-Boilerplate available [here](https://github.com/filahf/react-electron-express-boilerplate)
-
-### Common errors
+#### Common errors
 <details>
   <summary>Node module was built with the wrong version</summary>
   Run electron rebuild
