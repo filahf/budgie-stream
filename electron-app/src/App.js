@@ -1,5 +1,7 @@
 import React from 'react';
 import socketIOClient from 'socket.io-client';
+import Header from './components/header/header';
+import SonosDeviceList from './components/sonos/SonosList';
 const { desktopCapturer } = window.require('electron');
 //const { ipcRender } = window.require('electron');
 const ENDPOINT = 'localhost:5001';
@@ -66,11 +68,8 @@ function recorderProcess(e) {
 function App() {
   return (
     <div>
-      <header>
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-      </header>
+      <Header />
+      <SonosDeviceList />
     </div>
   );
 }
