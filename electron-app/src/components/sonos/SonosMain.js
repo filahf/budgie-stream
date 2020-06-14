@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
 import SonosCard from './componets/SonosCard';
 
 const dummyData = [
@@ -20,12 +21,18 @@ const SonosMain = () => {
   useEffect(() => {}, [state]);
 
   return (
-    <>
+    <CardsWrapper>
       {state.map((x) => (
         <SonosCard key={x.ip} devices={x} onClick={handleOnClick} />
       ))}
-    </>
+    </CardsWrapper>
   );
 };
+
+const CardsWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+`;
 
 export default SonosMain;
