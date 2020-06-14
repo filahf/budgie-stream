@@ -1,7 +1,7 @@
 import React from 'react';
 import socketIOClient from 'socket.io-client';
 import Header from './components/header/header';
-import SonosDeviceList from './components/sonos/SonosList';
+import SonosMain from './components/sonos/SonosMain';
 const { desktopCapturer } = window.require('electron');
 //const { ipcRender } = window.require('electron');
 const ENDPOINT = 'localhost:5001';
@@ -69,7 +69,7 @@ function App() {
   return (
     <div>
       <Header />
-      <SonosDeviceList />
+      <SonosMain />
     </div>
   );
 }
