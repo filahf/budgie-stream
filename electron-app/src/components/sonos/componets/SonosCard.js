@@ -20,8 +20,8 @@ const CardWrapper = styled.div`
   width: 10rem;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.05), 0 0px 40px rgba(0, 0, 0, 0.08);
   border-radius: 0.5rem;
-  border: solid ${(props) => (props.selected ? 'palevioletred' : 'grey')};
-  border-width: ${(props) => (props.selected ? '0.2rem' : '0rem')};
+  border: solid ${(props) => (props.selected ? 'palevioletred' : 'white')};
+  border-width: 0.2rem;
   text-align: center;
 `;
 
