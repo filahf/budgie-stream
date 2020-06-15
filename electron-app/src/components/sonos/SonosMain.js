@@ -13,11 +13,16 @@ const SonosMain = () => {
   const [state, setState] = useState(dummyData);
 
   const handleOnClick = (deviceIp) => {
-    const newState = state;
     const deviceIndex = state.findIndex((device) => device.ip === deviceIp);
-    newState[deviceIndex].selected = !state[deviceIndex].selected;
+    state[deviceIndex].selected = !state[deviceIndex].selected;
     setState([...state]);
   };
+
+  // const selectedDevices = () => {
+  //   const result = state.filter((device) => device.selected === true);
+  //   console.log('Selected devices', result);
+  // };
+
   useEffect(() => {}, [state]);
 
   return (
@@ -32,7 +37,7 @@ const SonosMain = () => {
 const CardsWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-evenly;
 `;
 
 export default SonosMain;
