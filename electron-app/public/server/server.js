@@ -7,7 +7,6 @@
   var ip = require('ip');
   var lame = require('@suldashi/lame');
   var stream = new require('stream');
-  var sonosRoutes = require('./sonosRoutes.js');
 
   // 16-bit signed samples
   var SAMPLE_SIZE = 16,
@@ -24,7 +23,6 @@
     var app = express();
     this.app = app;
     app.use(cors());
-    app.use('/sonos', sonosRoutes);
     this.serverPort = false;
     this.inputStream = inputStream;
     app.disable('x-powered-by');

@@ -1,6 +1,7 @@
 (function () {
   'use strict';
   var NicerCast = require('./server.js');
+  var Sonos = require('./sonosUtils');
   var io = require('socket.io')();
   var Readable = require('stream').Readable;
   var { Sonos } = require('sonos');
@@ -23,7 +24,7 @@
 
   // Init stream server
   var server = new NicerCast(audioStream, {});
-  //server.start(5000);
+  server.start(5000);
   /*   function startServer() {}
    */
 
