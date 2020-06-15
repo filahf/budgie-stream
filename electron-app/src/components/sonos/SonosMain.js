@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import SonosCard from './componets/SonosCard';
+const { ipcRender } = window.require('electron');
 
 const dummyData = [
   { name: 'Sonos 1', ip: '192.168.0.1', selected: false },
