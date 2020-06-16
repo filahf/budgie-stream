@@ -9,13 +9,16 @@ const dummyData = [
   { name: 'Sonos 3', ip: '192.168.0.3', selected: false },
   { name: 'Sonos 4', ip: '192.168.0.4', selected: false },
 ];
-ipcRenderer.send('fetchDevices', null);
-ipcRenderer.on('devices', (event, arg) => {
-  console.log(arg); // prints "pong"
-});
 
 const SonosMain = () => {
   const [state, setState] = useState(dummyData);
+
+  const fetchDevices = () => {
+    ipcRenderer.send('fetchDevices', null);
+    ipcRenderer.on('devices', (event, arg) => {
+      console.log(arg);
+    });
+  };
 
   const handleOnClick = (deviceIp) => {
     const deviceIndex = state.findIndex((device) => device.ip === deviceIp);
