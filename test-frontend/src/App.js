@@ -1,10 +1,11 @@
 import React from 'react';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
-import Header from './components/Header';
+import MainBar from './components/MainBar/MainBar';
+import Header from './components/Header/Header';
+import SelectDevices from './components/Devices/SelectDevices';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
   main: {
     marginTop: theme.spacing(8),
     marginBottom: theme.spacing(2),
+    paddingLeft: '5rem',
   },
   footer: {
     marginTop: 'auto',
@@ -26,19 +28,18 @@ function App() {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <CssBaseline />
-      <Container component='main' className={classes.main} maxWidth='sm'>
-        <Typography variant='h2' component='h1' gutterBottom>
-          Sticky footer
+      <Header />
+      <Container component='main' className={classes.main}>
+        <Typography color='primary' variant='h2' component='h1'>
+          Budgie
         </Typography>
-        <Typography variant='h5' component='h2' gutterBottom>
-          {'Pin a footer to the bottom of the viewport.'}
-          {'The footer will move as the main element of the page grows.'}
+        <Typography color='primary' variant='body1' component='h2' gutterBottom>
+          {'Stream What You Hear To Sonos'}
         </Typography>
-        <Typography variant='body1'>Sticky footer placeholder.</Typography>
+        <SelectDevices />
       </Container>
       <div className={classes.footer}>
-        <Header />
+        <MainBar />
       </div>
     </div>
   );

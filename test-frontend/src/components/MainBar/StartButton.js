@@ -1,12 +1,9 @@
 import React, { useState, useRef } from 'react';
-import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { green } from '@material-ui/core/colors';
-import Button from '@material-ui/core/Button';
 import Fab from '@material-ui/core/Fab';
-import CheckIcon from '@material-ui/icons/Check';
-import SaveIcon from '@material-ui/icons/Save';
+import { Stop, PlayArrow } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -14,17 +11,11 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
   },
   wrapper: {
-    margin: theme.spacing(1),
+    margin: theme.spacing(0),
     position: 'relative',
   },
-  buttonSuccess: {
-    backgroundColor: green[500],
-    '&:hover': {
-      backgroundColor: green[700],
-    },
-  },
   fabProgress: {
-    color: green[500],
+    color: '#81a1c1',
     position: 'absolute',
     top: -6,
     left: -6,
@@ -45,10 +36,6 @@ export default function CircularIntegration() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const timer = useRef();
-
-  const buttonClassname = clsx({
-    [classes.buttonSuccess]: success,
-  });
 
   React.useEffect(() => {
     return () => {
@@ -72,11 +59,10 @@ export default function CircularIntegration() {
       <div className={classes.wrapper}>
         <Fab
           aria-label='save'
-          color='primary'
-          className={buttonClassname}
+          style={{ color: '#5e81ac' }}
           onClick={handleButtonClick}
         >
-          {success ? <CheckIcon /> : <SaveIcon />}
+          {success ? <Stop /> : <PlayArrow />}
         </Fab>
         {loading && (
           <CircularProgress size={68} className={classes.fabProgress} />
