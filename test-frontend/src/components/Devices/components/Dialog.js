@@ -1,74 +1,75 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
+import {
+  Checkbox,
+  Dialog,
+  DialogTitle,
+  List,
+  ListItem,
+  ListItemText,
+  ListItemIcon,
+  ListItemSecondaryAction,
+  DialogContent,
+  DialogActions,
+  Button,
+} from '@material-ui/core/';
+import SpeakerGroupIcon from '@material-ui/icons/SpeakerGroup';
 
-import Avatar from '@material-ui/core/Avatar';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import ListItemText from '@material-ui/core/ListItemText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Dialog from '@material-ui/core/Dialog';
-import PersonIcon from '@material-ui/icons/Person';
-import AddIcon from '@material-ui/icons/Add';
+const devices = [
+  { name: 'Bedroom', ip: '192.168.0.1', selected: false },
+  { name: 'Kitchen', ip: '192.168.0.2', selected: false },
+  { name: 'Living Room', ip: '192.168.0.3', selected: false },
+];
 
-import { blue } from '@material-ui/core/colors';
-
-const emails = ['username@gmail.com', 'user02@gmail.com'];
-const useStyles = makeStyles({
-  avatar: {
-    backgroundColor: blue[100],
-    color: blue[600],
-  },
-});
 const SimpleDialog = (props) => {
-  const classes = useStyles();
-  const { onClose, selectedValue, open } = props;
+  const { onClose, open } = props;
 
-  const handleClose = () => {
-    onClose(selectedValue);
-  };
+  const [state, setState] = useState(devices);
 
-  const handleListItemClick = (value) => {
-    onClose(value);
+  const handleChange = (deviceIp) => {
+    const deviceIndex = state.findIndex((device) => device.ip === deviceIp);
+    state[deviceIndex].selected = !state[deviceIndex].selected;
+    setState([...state]);
+    console.log(state);
   };
 
   return (
     <Dialog
-      onClose={handleClose}
+      onClose={onClose}
+      fullWidth='true'
+      maxWidth='xs'
       aria-labelledby='simple-dialog-title'
       open={open}
     >
-      <DialogTitle id='simple-dialog-title'>Set backup account</DialogTitle>
-      <List>
-        {emails.map((email) => (
-          <ListItem
-            button
-            onClick={() => handleListItemClick(email)}
-            key={email}
-          >
-            <ListItemAvatar>
-              <Avatar className={classes.avatar}>
-                <PersonIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText primary={email} />
-          </ListItem>
-        ))}
-
-        <ListItem
-          autoFocus
-          button
-          onClick={() => handleListItemClick('addAccount')}
-        >
-          <ListItemAvatar>
-            <Avatar>
-              <AddIcon />
-            </Avatar>
-          </ListItemAvatar>
-          <ListItemText primary='Add account' />
-        </ListItem>
-      </List>
+      <DialogTitle id='simple-dialog-title'>Select Devices</DialogTitle>
+      <DialogContent>
+        <List>
+          {devices.map((device) => (
+            <ListItem
+              button
+              onClick={() => handleChange(device.ip)}
+              key={device.ip}
+            >
+              <ListItemIcon>
+                <SpeakerGroupIcon />
+              </ListItemIcon>
+              <ListItemText id='switch-list-label-wifi' primary={device.name} />
+              <ListItemSecondaryAction>
+                <Checkbox
+                  checked={device.selected}
+                  name={device.ip}
+                  onClick={() => handleChange(device.ip)}
+                />
+              </ListItemSecondaryAction>
+            </ListItem>
+          ))}
+        </List>
+        <DialogActions>
+          <Button onClick={onClose} color='primary' autoFocus>
+            SAVE
+          </Button>
+        </DialogActions>
+      </DialogContent>
     </Dialog>
   );
 };
@@ -76,7 +77,6 @@ const SimpleDialog = (props) => {
 SimpleDialog.propTypes = {
   onClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
-  selectedValue: PropTypes.string.isRequired,
 };
 
 export default SimpleDialog;
