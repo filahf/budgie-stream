@@ -1,8 +1,7 @@
-import React from 'react';
-import { AppBar, Badge, Tooltip, Grid } from '@material-ui/core';
+import { AppBar, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-import SpeakerIcon from '@material-ui/icons/Speaker';
-
+import React from 'react';
+import Devices from './Devices';
 //components
 import StartButton from './StartButton';
 import VolumeSlider from './Volume';
@@ -29,11 +28,7 @@ const MainBar = (props) => {
           alignItems='center'
           xs
         >
-          <Tooltip title='Connected Devices' aria-label='Devices'>
-            <Badge color='secondary' badgeContent={2}>
-              <SpeakerIcon />
-            </Badge>
-          </Tooltip>
+          <Devices />
         </Grid>
         <Grid container xs={6} alignItems='center' justify='center'>
           <StartButton />

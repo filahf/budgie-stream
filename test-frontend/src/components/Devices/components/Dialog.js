@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
+import { ClientContext } from '../../../utils/ClientContext';
 import PropTypes from 'prop-types';
 import {
   Checkbox,
@@ -15,22 +16,17 @@ import {
 } from '@material-ui/core/';
 import SpeakerGroupIcon from '@material-ui/icons/SpeakerGroup';
 
-const devices = [
-  { name: 'Bedroom', ip: '192.168.0.1', selected: false },
-  { name: 'Kitchen', ip: '192.168.0.2', selected: false },
-  { name: 'Living Room', ip: '192.168.0.3', selected: false },
-];
-
 const SimpleDialog = (props) => {
   const { onClose, open } = props;
 
-  const [state, setState] = useState(devices);
+  const [state, setState] = useContext(ClientContext);
 
   const handleChange = (deviceIp) => {
-    const deviceIndex = state.findIndex((device) => device.ip === deviceIp);
-    state[deviceIndex].selected = !state[deviceIndex].selected;
-    setState([...state]);
-    console.log(state);
+    const deviceIndex = state.devices.findIndex(
+      (device) => device.ip === deviceIp
+    );
+    state.devices[deviceIndex].selected = !state.devices[deviceIndex].selected;
+    setState({ ...state });
   };
 
   return (
@@ -44,7 +40,7 @@ const SimpleDialog = (props) => {
       <DialogTitle id='simple-dialog-title'>Select Devices</DialogTitle>
       <DialogContent>
         <List>
-          {devices.map((device) => (
+          {state.devices.map((device) => (
             <ListItem
               button
               onClick={() => handleChange(device.ip)}
