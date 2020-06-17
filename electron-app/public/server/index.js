@@ -1,25 +1,30 @@
 (function () {
   'use strict';
   var NicerCast = require('./server.js');
-  const io = require('socket.io')();
+  var Sonos = require('./sonosUtils');
+  var io = require('socket.io')();
   var Readable = require('stream').Readable;
-  const { Sonos } = require('sonos');
-  const device = new Sonos('192.168.0.133');
+  var { Sonos } = require('sonos');
+  var device = new Sonos('192.168.0.133');
   var ip = require('ip');
+
+  // Init a readable stream
   let audioStream = new Readable();
   audioStream._read = () => {};
-
+  // Socket init
   io.listen(5001);
-  console.log(ip.address());
+  // Get raw audio in PCM int 16 from client side
   io.on('connection', (socket) => {
     console.log('New client connected');
     socket.on('audioStream', (stream) => {
+      // Push raw audio to the readable stream
       audioStream.push(stream);
-      //console.log(stream);
     });
   });
+
+  // Init stream server
   var server = new NicerCast(audioStream, {});
-  //server.start(5000);
+  server.start(5000);
   /*   function startServer() {}
    */
 

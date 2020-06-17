@@ -1,5 +1,5 @@
-import styled from 'styled-components';
 import React from 'react';
+import styled from 'styled-components';
 
 const SonosCard = (props) => {
   const { ip, name, selected } = props.devices;
@@ -20,7 +20,7 @@ const CardWrapper = styled.div`
   width: 10rem;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.05), 0 0px 40px rgba(0, 0, 0, 0.08);
   border-radius: 0.5rem;
-  border: solid ${(props) => (props.selected ? 'palevioletred' : 'grey')};
+  border: solid ${(props) => (props.selected ? 'palevioletred' : 'white')};
   border-width: 0.2rem;
   text-align: center;
 `;
@@ -31,7 +31,7 @@ const CardHeader = styled.header`
 `;
 
 const CardHeading = styled.h1`
-  font-size: 1.5rem;
+  font-size: 1rem;
   font-weight: bold;
   text-align: center;
 `;
