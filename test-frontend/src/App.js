@@ -33,7 +33,7 @@ function App() {
         <Header />
         <Container component='main' className={classes.main}>
           <Typography color='primary' variant='h2' component='h1'>
-            Budgie
+            Budgie Stream
           </Typography>
           <Typography
             color='primary'

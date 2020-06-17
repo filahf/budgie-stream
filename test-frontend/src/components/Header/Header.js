@@ -1,7 +1,6 @@
 import React from 'react';
-import { Grid, Tooltip, IconButton } from '@material-ui/core';
+import { Grid, IconButton } from '@material-ui/core';
 import SettingsIcon from '@material-ui/icons/Settings';
-import LocalCafeIcon from '@material-ui/icons/LocalCafe';
 
 const Header = (props) => {
   return (
@@ -9,16 +8,9 @@ const Header = (props) => {
       container
       direction='row'
       style={{ padding: '1rem' }}
-      justify='space-between'
+      justify='flex-end'
       alignItems='center'
     >
-      <Grid item>
-        <Tooltip title='Support this project' aria-label='Buy me a Coffee'>
-          <IconButton aria-label='coffee'>
-            <LocalCafeIcon />
-          </IconButton>
-        </Tooltip>
-      </Grid>
       <Grid item>
         <IconButton aria-label='settings'>
           <SettingsIcon />
