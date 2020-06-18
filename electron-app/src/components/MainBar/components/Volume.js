@@ -35,7 +35,7 @@ const VolumeSlider = () => {
 
   const handleChange = (event, newValue) => {
     console.log(event.currentTar);
-    if (devices.length !== 0) {
+    if (devices.length > 1) {
       setAnchorEl(ref.current);
     }
     setValue(newValue);
