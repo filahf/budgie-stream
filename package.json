@@ -1,7 +1,0 @@
-{
-  "dependencies": {
-    "@material-ui/core": "^4.10.2",
-    "@material-ui/icons": "^4.9.1",
-    "fontsource-roboto": "^2.1.4"
-  }
-}

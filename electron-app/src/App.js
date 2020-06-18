@@ -1,7 +1,5 @@
 import React from 'react';
 import socketIOClient from 'socket.io-client';
-import Header from './components/header/header';
-import SonosMain from './components/sonos/SonosMain';
 const { desktopCapturer } = window.require('electron');
 const ENDPOINT = 'localhost:5001';
 const socket = socketIOClient(ENDPOINT);
@@ -62,12 +60,7 @@ function recorderProcess(e) {
 }
 
 function App() {
-  return (
-    <div>
-      <Header />
-      <SonosMain />
-    </div>
-  );
+  return <div>hej</div>;
 }
 
 export default App;
