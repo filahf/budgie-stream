@@ -1,5 +1,6 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { ClientContext } from '../../../utils/ClientContext';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { green } from '@material-ui/core/colors';
 import Fab from '@material-ui/core/Fab';
@@ -33,6 +34,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CircularIntegration() {
   const classes = useStyles();
+  // eslint-disable-next-line
+  const [state, setState] = useContext(ClientContext);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const timer = useRef();
@@ -45,19 +48,22 @@ export default function CircularIntegration() {
 
   const handleButtonClick = () => {
     if (!loading) {
-      setSuccess(false);
+      //setSuccess(false);
       setLoading(true);
       timer.current = setTimeout(() => {
-        setSuccess(true);
+        setSuccess(!success);
         setLoading(false);
       }, 2000);
     }
   };
+  const devices = state.devices.filter((device) => device.selected === true);
+  const disabled = !!!devices.length;
 
   return (
     <div className={classes.root}>
       <div className={classes.wrapper}>
         <Fab
+          disabled={disabled}
           aria-label='save'
           style={{ color: '#5e81ac' }}
           onClick={handleButtonClick}

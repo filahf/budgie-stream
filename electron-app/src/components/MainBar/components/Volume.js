@@ -25,7 +25,7 @@ const useStyles = makeStyles({
 
 const VolumeSlider = () => {
   const classes = useStyles();
-  const [value, setValue] = useState(30);
+  const [value, setValue] = useState(50);
   const [anchorEl, setAnchorEl] = useState(null);
   const ref = createRef();
   const open = Boolean(anchorEl);
@@ -45,6 +45,9 @@ const VolumeSlider = () => {
     setAnchorEl(null);
   };
 
+  // Only control the volume if any devices are selected
+  const disabled = !!!devices.length;
+
   return (
     <>
       <div className={classes.root}>
@@ -56,6 +59,7 @@ const VolumeSlider = () => {
             <Slider
               className={classes.slider}
               value={value}
+              disabled={disabled}
               onChange={handleChange}
               aria-labelledby='volume-slider'
             />

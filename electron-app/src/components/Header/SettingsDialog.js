@@ -1,22 +1,19 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import {
+  AppBar,
   Button,
   Dialog,
-  ListSubheader,
-  ListItemText,
-  ListItem,
-  List,
-  Divider,
-  AppBar,
-  Toolbar,
   IconButton,
-  Typography,
+  List,
+  ListItem,
+  ListItemText,
   TextField,
+  Toolbar,
+  Typography,
 } from '@material-ui/core';
-
-import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
+import { makeStyles } from '@material-ui/core/styles';
+import CloseIcon from '@material-ui/icons/Close';
+import React from 'react';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -61,15 +58,12 @@ const SettingsDialog = (props) => {
         </Toolbar>
       </AppBar>
       <List>
-        <ListSubheader>Environment Details </ListSubheader>
         <ListItem>
           <ListItemText primary='Budgie Version' secondary='0.0.1' />
         </ListItem>
         <ListItem>
           <ListItemText primary='Local IP' secondary='192.168.0.174' />
         </ListItem>
-        <Divider />
-        <ListSubheader>Stream Config </ListSubheader>
         <ListItem>
           <ListItemText
             primary='Sample rate'
@@ -92,7 +86,6 @@ const SettingsDialog = (props) => {
         <ListItem>
           <ListItemText primary='Source' secondary='Screen 1' />
         </ListItem>
-        <Divider />
       </List>
     </Dialog>
   );
