@@ -1,7 +1,15 @@
 import React from 'react';
+
+import { ClientProvider } from './utils/ClientContext';
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+
+import MainBar from './components/MainBar/MainBar';
+import Header from './components/Header/Header';
+import SelectDevices from './components/Devices/SelectDevices';
+import Welcome from './components/Welcome/Welcome';
+
 import socketIOClient from 'socket.io-client';
-import Header from './components/header/header';
-import SonosMain from './components/sonos/SonosMain';
 const { desktopCapturer } = window.require('electron');
 const ENDPOINT = 'localhost:5001';
 const socket = socketIOClient(ENDPOINT);
@@ -61,12 +69,38 @@ function recorderProcess(e) {
   socket.emit('audioStream', convertFloat32ToInt16(left));
 }
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    flexDirection: 'column',
+    minHeight: '100vh',
+  },
+  main: {
+    marginTop: theme.spacing(0),
+    marginBottom: theme.spacing(2),
+  },
+  footer: {
+    marginTop: 'auto',
+    bottom: 0,
+  },
+}));
+
 function App() {
+  const classes = useStyles();
   return (
-    <div>
-      <Header />
-      <SonosMain />
-    </div>
+    <ClientProvider>
+      <div className={classes.root}>
+        <Header />
+        <Container component='main' className={classes.main}>
+          <Welcome>
+            <SelectDevices />
+          </Welcome>
+        </Container>
+        <div className={classes.footer}>
+          <MainBar />
+        </div>
+      </div>
+    </ClientProvider>
   );
 }
 
