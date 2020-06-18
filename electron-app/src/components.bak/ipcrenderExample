@@ -1,0 +1,10 @@
+
+const { ipcRenderer } = window.require('electron');
+
+  const fetchDevices = () => {
+    ipcRenderer.send('fetchDevices', null);
+    ipcRenderer.on('devices', (event, arg) => {
+      console.log(arg);
+    });
+  };
+
