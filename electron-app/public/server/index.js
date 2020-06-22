@@ -8,6 +8,8 @@
   var device = new Sonos('192.168.0.133');
   var ip = require('ip');
   const Store = require('electron-store');
+
+  // Manage store
   const store = new Store();
   console.log(store.get('unicorn'));
 
@@ -27,7 +29,7 @@
 
   // Init stream server
   var server = new NicerCast(audioStream, {});
-  //server.start(5000);
+  server.start(5000);
   /*   function startServer() {}
    */
 
@@ -41,7 +43,7 @@
         console.log('Error occurred %j', err);
       });
   }
-  //play();
+  play();
 
   //module.exports = app;
 })();
