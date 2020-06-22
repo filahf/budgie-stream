@@ -7,6 +7,11 @@
   var { Sonos } = require('sonos');
   var device = new Sonos('192.168.0.133');
   var ip = require('ip');
+  const Store = require('electron-store');
+
+  // Manage store
+  const store = new Store();
+  console.log(store.get('unicorn'));
 
   // Init a readable stream
   let audioStream = new Readable();
@@ -38,7 +43,7 @@
         console.log('Error occurred %j', err);
       });
   }
-  //play();
+  play();
 
   //module.exports = app;
 })();
