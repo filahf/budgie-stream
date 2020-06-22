@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   AppBar,
   Button,
@@ -13,7 +14,10 @@ import {
 import Slide from '@material-ui/core/Slide';
 import { makeStyles } from '@material-ui/core/styles';
 import CloseIcon from '@material-ui/icons/Close';
-import React from 'react';
+import Store from '../../utils/userConfig';
+
+Store.set('unicorn', 'hello');
+console.log(Store.get('unicorn'));
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
