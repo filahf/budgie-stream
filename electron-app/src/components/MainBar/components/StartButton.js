@@ -5,6 +5,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { green } from '@material-ui/core/colors';
 import Fab from '@material-ui/core/Fab';
 import { Stop, PlayArrow } from '@material-ui/icons';
+const { ipcRenderer } = window.require('electron');
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,7 +38,7 @@ export default function CircularIntegration() {
   // eslint-disable-next-line
   const [state, setState] = useContext(ClientContext);
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
+  const [playback, setPlayback] = useState(false);
   const timer = useRef();
 
   React.useEffect(() => {
@@ -46,18 +47,20 @@ export default function CircularIntegration() {
     };
   }, []);
 
+  const devices = state.devices.filter((device) => device.selected === true);
+  const disabled = !!!devices.length;
+
   const handleButtonClick = () => {
     if (!loading) {
-      //setSuccess(false);
+      ipcRenderer.send('togglePlayback', devices);
+      //setplayback(false);
       setLoading(true);
       timer.current = setTimeout(() => {
-        setSuccess(!success);
+        setPlayback(!playback);
         setLoading(false);
       }, 2000);
     }
   };
-  const devices = state.devices.filter((device) => device.selected === true);
-  const disabled = !!!devices.length;
 
   return (
     <div className={classes.root}>
@@ -68,7 +71,7 @@ export default function CircularIntegration() {
           style={{ color: '#5e81ac' }}
           onClick={handleButtonClick}
         >
-          {success ? <Stop /> : <PlayArrow />}
+          {playback ? <Stop /> : <PlayArrow />}
         </Fab>
         {loading && (
           <CircularProgress size={68} className={classes.fabProgress} />

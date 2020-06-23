@@ -1,13 +1,7 @@
 import React from 'react';
 function Graphic(props) {
   return (
-    <svg
-      width='auto'
-      height={props.height}
-      viewBox='0 0 640 640'
-      fill='none'
-      xmlns='http://www.w3.org/2000/svg'
-    >
+    <svg viewBox='0 0 640 640' fill='none' xmlns='http://www.w3.org/2000/svg'>
       <g id='logo 1'>
         <g id='Group'>
           <g id='Group_2'>

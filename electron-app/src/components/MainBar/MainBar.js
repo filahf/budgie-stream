@@ -7,7 +7,7 @@ import StartButton from './components/StartButton';
 import VolumeSlider from './components/Volume';
 
 const useStyles = makeStyles(() => ({
-  barItems: { padding: '1.5rem' },
+  barItems: { padding: '1.3rem' },
 }));
 
 const MainBar = (props) => {
