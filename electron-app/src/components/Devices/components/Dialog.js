@@ -59,8 +59,8 @@ const SimpleDialog = (props) => {
               <ListItemSecondaryAction>
                 <Checkbox
                   checked={device.selected}
-                  name={device.ip}
-                  onClick={() => handleChange(device.ip)}
+                  name={device.name}
+                  onClick={() => handleChange(device.name)}
                 />
               </ListItemSecondaryAction>
             </ListItem>
