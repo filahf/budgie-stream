@@ -9,12 +9,16 @@ const Store = require('electron-store');
 const store = new Store();
 store.set('ip', ip.address());
 
+let groupsAvail = {};
+let selectedDevices = [];
+// Fetch devices
 async function fetchDevices() {
   return discovery
     .discover()
     .then((device, model) => {
       return device.getAllGroups().then((groups) => {
         console.log('async func');
+        groupsAvail = groups;
         return JSON.stringify(groups, null, 2);
       });
     })
@@ -25,12 +29,13 @@ async function fetchDevices() {
 
 ipcMain.on('fetchDevices', async (event, arg) => {
   var devices = await fetchDevices();
-  console.log(devices);
   event.sender.send('devices', devices);
 });
 
-function play() {
-  device
+// Toggle Playback
+function togglePlayback() {
+  groupsAvail[0]
+    .CoordinatorDevice()
     .play('x-rincon-mp3radio://192.168.0.194:5000/stream.mp3')
     .then((success) => {
       console.log('Yeay');
@@ -39,4 +44,12 @@ function play() {
       console.log('Error occurred %j', err);
     });
 }
-//play();
+
+ipcMain.on('togglePlayback', (event, arg) => {
+  selectedDevices = JSON.parse(arg);
+  console.log(selectedDevices);
+  console.log('selected devices', arg);
+  togglePlayback();
+});
+
+// Volume control

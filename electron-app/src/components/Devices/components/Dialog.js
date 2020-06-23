@@ -21,9 +21,9 @@ const SimpleDialog = (props) => {
   const [state, setState] = useContext(ClientContext);
   const [selected, setSelected] = useState(null);
 
-  const handleChange = (deviceIp) => {
+  const handleChange = (deviceName) => {
     const deviceIndex = state.devices.findIndex(
-      (device) => device.ip === deviceIp
+      (device) => device.name === deviceName
     );
     state.devices[deviceIndex].selected = !state.devices[deviceIndex].selected;
     setSelected({ ...state });
@@ -49,8 +49,8 @@ const SimpleDialog = (props) => {
           {state.devices.map((device) => (
             <ListItem
               button
-              onClick={() => handleChange(device.ip)}
-              key={device.ip}
+              onClick={() => handleChange(device.name)}
+              key={device.name}
             >
               <ListItemIcon>
                 <SpeakerGroupIcon />
