@@ -38,7 +38,7 @@ const Welcome = (props) => {
           </Typography>
         </Grid>
         <Grid item xs={4}>
-          <BudgieLogo height={250} />
+          <BudgieLogo style={{ height: 250, width: 'auto' }} />
         </Grid>
       </Grid>
       <Grid container direction='row' justify='center' alignItems='center'>
