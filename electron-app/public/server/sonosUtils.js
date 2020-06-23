@@ -46,10 +46,15 @@ function togglePlayback() {
 }
 
 ipcMain.on('togglePlayback', (event, arg) => {
-  selectedDevices = JSON.parse(arg);
-  console.log(selectedDevices);
+  selectedDevices = arg;
   console.log('selected devices', arg);
   togglePlayback();
 });
 
 // Volume control
+
+ipcMain.on('setVolume', (event, arg) => {
+  selectedDevices = arg;
+  console.log('selected devices', arg);
+  togglePlayback();
+});
