@@ -17,7 +17,6 @@ async function fetchDevices() {
     .discover()
     .then((device, model) => {
       return device.getAllGroups().then((groups) => {
-        console.log('async func');
         groupsAvail = groups;
         return JSON.stringify(groups, null, 2);
       });
