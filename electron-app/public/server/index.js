@@ -11,7 +11,7 @@
 
   // Manage store
   const store = new Store();
-  console.log(store.get('unicorn'));
+  store.set('ip', ip.address());
 
   // Init a readable stream
   let audioStream = new Readable();
