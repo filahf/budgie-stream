@@ -29,7 +29,7 @@
 
   // Init stream server
   var server = new NicerCast(audioStream, {});
-  server.start(5000);
+  //server.start(5000);
   /*   function startServer() {}
    */
 
@@ -43,7 +43,7 @@
         console.log('Error occurred %j', err);
       });
   }
-  play();
+  //play();
 
   //module.exports = app;
 })();

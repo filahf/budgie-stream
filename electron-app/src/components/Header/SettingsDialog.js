@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   AppBar,
   Button,
@@ -16,9 +16,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import CloseIcon from '@material-ui/icons/Close';
 import Store from '../../utils/userConfig';
 
-Store.set('unicorn', 'hello');
-console.log(Store.get('unicorn'));
-
 const useStyles = makeStyles((theme) => ({
   appBar: {
     position: 'relative',
@@ -34,13 +31,25 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 const SettingsDialog = (props) => {
+  const { close } = props;
   const classes = useStyles();
+  const addr = Store.get('ip');
+  const [sampleRate, setSampleRate] = useState(Store.get('samplerate'));
+
+  const handleSampleChange = (e) => {
+    setSampleRate(e.target.value);
+  };
+
+  const handleOnClose = () => {
+    Store.set('samplerate', sampleRate);
+    close();
+  };
 
   return (
     <Dialog
       fullScreen
       open={props.open}
-      onClose={props.close}
+      onClose={close}
       TransitionComponent={Transition}
     >
       <AppBar className={classes.appBar}>
@@ -48,16 +57,16 @@ const SettingsDialog = (props) => {
           <IconButton
             edge='start'
             color='inherit'
-            onClick={props.close}
+            onClick={close}
             aria-label='close'
           >
             <CloseIcon />
           </IconButton>
           <Typography variant='h6' className={classes.title}>
-            Settings
+            SETTINGS
           </Typography>
-          <Button autoFocus color='inherit' onClick={props.close}>
-            save
+          <Button autoFocus color='inherit' onClick={handleOnClose}>
+            SAVE
           </Button>
         </Toolbar>
       </AppBar>
@@ -66,7 +75,7 @@ const SettingsDialog = (props) => {
           <ListItemText primary='Budgie Version' secondary='0.0.1' />
         </ListItem>
         <ListItem>
-          <ListItemText primary='Local IP' secondary='192.168.0.174' />
+          <ListItemText primary='Local IP' secondary={addr} />
         </ListItem>
         <ListItem>
           <ListItemText
@@ -77,8 +86,8 @@ const SettingsDialog = (props) => {
                   id='standard-number'
                   label='kHz'
                   type='number'
-                  value={48000}
-                  //   onChange={handleChange}
+                  value={sampleRate}
+                  onChange={handleSampleChange}
                   InputLabelProps={{
                     shrink: true,
                   }}
