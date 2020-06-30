@@ -1,6 +1,7 @@
 import React, { useState, createRef, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { ClientContext } from '../../../utils/ClientContext';
+import { setVolume } from '../../../utils/useSonos';
 import { Grid, Slider, Popover } from '@material-ui/core';
 import VolumeUp from '@material-ui/icons/VolumeUp';
 
@@ -25,7 +26,7 @@ const useStyles = makeStyles({
 
 const VolumeSlider = () => {
   const classes = useStyles();
-  const [value, setValue] = useState(50);
+  const [value, setValue] = useState(30);
   const [anchorEl, setAnchorEl] = useState(null);
   const ref = createRef();
   const open = Boolean(anchorEl);
@@ -34,11 +35,12 @@ const VolumeSlider = () => {
   const devices = state.devices.filter((device) => device.selected === true);
 
   const handleChange = (event, newValue) => {
-    console.log(event.currentTar);
+    //console.log(event.currentTar);
     if (devices.length > 1) {
       setAnchorEl(ref.current);
     }
     setValue(newValue);
+    setVolume('bedroom', newValue);
   };
 
   const handleClose = () => {
