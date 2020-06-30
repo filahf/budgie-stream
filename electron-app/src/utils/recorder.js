@@ -3,7 +3,16 @@ const { desktopCapturer } = window.require('electron');
 const ENDPOINT = 'localhost:5001';
 const socket = socketIOClient(ENDPOINT);
 
+var audioContext = null;
+var context = null;
+
+export const stopRecording = async () => {
+  await context.close();
+};
+
 export const startRecording = () => {
+  audioContext = window.AudioContext;
+  context = new audioContext();
   desktopCapturer.getSources({ types: ['screen'] }).then(async (sources) => {
     for (const source of sources) {
       if (source.name === 'Screen 1') {
@@ -32,8 +41,6 @@ export const startRecording = () => {
 
 const handleStream = (stream) => {
   const audioTrack = new MediaStream([stream.getTracks()[0]]);
-  var audioContext = window.AudioContext;
-  var context = new audioContext();
   var audioInput = context.createMediaStreamSource(audioTrack);
   var bufferSize = 2048;
   // create a javascript node

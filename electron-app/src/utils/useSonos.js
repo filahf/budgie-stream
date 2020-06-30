@@ -1,13 +1,12 @@
 import { useContext } from 'react';
 import { ClientContext } from './ClientContext';
-import { startRecording } from './recorder';
+import { startRecording, stopRecording } from './recorder';
 const { ipcRenderer } = window.require('electron');
 export function togglePlay(devices, startPlaying) {
-  console.log(startPlaying);
   if (startPlaying) {
     startRecording();
-    ipcRenderer.send('togglePlayback', devices);
   } else {
-    ipcRenderer.send('pause', devices);
+    stopRecording();
   }
+  ipcRenderer.send('togglePlayback', { devices, startPlaying });
 }
