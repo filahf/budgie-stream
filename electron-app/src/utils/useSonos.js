@@ -1,16 +1,13 @@
 import { useContext } from 'react';
 import { ClientContext } from './ClientContext';
-
-const useSonos = () => {
-  const [state, setState] = useContext(ClientContext);
-
-  function togglePlay() {
-    setState((state) => ({ ...state, isPlaying: !state.isPlaying }));
+import { startRecording } from './recorder';
+const { ipcRenderer } = window.require('electron');
+export function togglePlay(devices, startPlaying) {
+  console.log(startPlaying);
+  if (startPlaying) {
+    startRecording();
+    ipcRenderer.send('togglePlayback', devices);
+  } else {
+    ipcRenderer.send('pause', devices);
   }
-
-  return {
-    togglePlay,
-  };
-};
-
-export default useSonos;
+}

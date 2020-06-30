@@ -10,17 +10,20 @@ const ClientProvider = (props) => {
     ipcRenderer.on('devices', (event, arg) => {
       groups = JSON.parse(arg);
       groups.forEach((element) => {
-        setState({
-          devices: [...state.devices, { name: element.Name, selected: false }],
-        });
+        setState((prevState) => ({
+          ...prevState,
+          devices: [
+            ...prevState.devices,
+            { name: element.Name, selected: false },
+          ],
+        }));
       });
     });
   };
+
   const [state, setState] = useState({
-    devices: [
-      { name: 'Kitchen', selected: false },
-      { name: 'Living Room', selected: false },
-    ],
+    devices: [],
+    playing: false,
   });
 
   useEffect(() => {
