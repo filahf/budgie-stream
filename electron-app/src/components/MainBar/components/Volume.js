@@ -40,7 +40,7 @@ const VolumeSlider = () => {
       setAnchorEl(ref.current);
     }
     setValue(newValue);
-    //setVolume('bedroom', newValue);
+    setVolume(device, newValue);
   };
 
   const handleClose = () => {
