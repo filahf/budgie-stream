@@ -34,8 +34,8 @@ const VolumeSlider = () => {
   const [state, setState] = useContext(ClientContext);
   const devices = state.devices.filter((device) => device.selected === true);
 
-  const handleChange = (event, newValue) => {
-    console.log(newValue);
+  const handleChange = (device, newValue) => {
+    console.log(device, newValue);
     if (devices.length > 1) {
       setAnchorEl(ref.current);
     }
@@ -62,7 +62,7 @@ const VolumeSlider = () => {
               className={classes.slider}
               value={value}
               disabled={disabled}
-              onChange={handleChange}
+              onChange={(event, value) => handleChange('master', value)}
               aria-labelledby='volume-slider'
             />
           </Grid>

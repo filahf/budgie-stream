@@ -24,8 +24,8 @@ const DevicesVolume = (props) => {
   const classes = useStyles();
   const devices = props.devices;
 
-  const handleChange = (event, newValue) => {
-    console.log(event, newValue);
+  const handleChange = (device, newValue) => {
+    console.log(device, newValue);
   };
 
   return (
