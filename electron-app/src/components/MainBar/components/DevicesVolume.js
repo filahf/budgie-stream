@@ -24,16 +24,23 @@ const DevicesVolume = (props) => {
   const classes = useStyles();
   const devices = props.devices;
 
+  const handleChange = (event, newValue) => {
+    console.log(event, newValue);
+  };
+
   return (
     <List className={classes.root}>
       {devices.map((device) => (
-        <ListItem alignItems='flex-start'>
+        <ListItem key={device.name} alignItems='flex-start'>
           <ListItemText
             className={classes.typo}
             primary={device.name}
             secondary={
               <React.Fragment>
-                <Slider value={20} className={classes.slider} />
+                <Slider
+                  onChange={(event, value) => handleChange(device.name, value)}
+                  className={classes.slider}
+                />
               </React.Fragment>
             }
           />

@@ -35,12 +35,12 @@ const VolumeSlider = () => {
   const devices = state.devices.filter((device) => device.selected === true);
 
   const handleChange = (event, newValue) => {
-    //console.log(event.currentTar);
+    console.log(newValue);
     if (devices.length > 1) {
       setAnchorEl(ref.current);
     }
     setValue(newValue);
-    setVolume('bedroom', newValue);
+    //setVolume('bedroom', newValue);
   };
 
   const handleClose = () => {

@@ -22,7 +22,10 @@ const ClientProvider = (props) => {
   };
 
   const [state, setState] = useState({
-    devices: [],
+    devices: [
+      { name: 'Kitchen', selected: false },
+      { name: 'Living Room', selected: false },
+    ],
     playing: false,
   });
 
