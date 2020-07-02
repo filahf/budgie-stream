@@ -10,6 +10,10 @@ import {
   TextField,
   Toolbar,
   Typography,
+  InputLabel,
+  FormControl,
+  Select,
+  MenuItem,
 } from '@material-ui/core';
 import Slide from '@material-ui/core/Slide';
 import { makeStyles } from '@material-ui/core/styles';
@@ -78,26 +82,37 @@ const SettingsDialog = (props) => {
           <ListItemText primary='Local IP' secondary={addr} />
         </ListItem>
         <ListItem>
-          <ListItemText
-            primary='Sample rate'
-            secondary={
-              <React.Fragment>
-                <TextField
-                  id='standard-number'
-                  label='kHz'
-                  type='number'
-                  value={sampleRate}
-                  onChange={handleSampleChange}
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                />
-              </React.Fragment>
-            }
+          <TextField
+            label='Sample Rate in Hz'
+            type='number'
+            value={sampleRate}
+            onChange={handleSampleChange}
+            InputLabelProps={{
+              shrink: true,
+            }}
           />
         </ListItem>
         <ListItem>
           <ListItemText primary='Source' secondary='Screen 1' />
+        </ListItem>
+        <ListItem>
+          <FormControl style={{ minWidth: '200px' }}>
+            <InputLabel id='demo-simple-select-label'>Sound Source</InputLabel>
+            <Select
+              labelId='demo-simple-select-placeholder-label-label'
+              id='demo-simple-select-placeholder-label'
+              // value={age}
+              // onChange={handleChange}
+              displayEmpty
+            >
+              <MenuItem value=''>
+                <em>None</em>
+              </MenuItem>
+              <MenuItem value={10}>Ten</MenuItem>
+              <MenuItem value={20}>Twenty</MenuItem>
+              <MenuItem value={30}>Thirty</MenuItem>
+            </Select>
+          </FormControl>
         </ListItem>
       </List>
     </Dialog>

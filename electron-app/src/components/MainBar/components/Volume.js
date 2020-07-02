@@ -1,6 +1,7 @@
 import React, { useState, createRef, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { ClientContext } from '../../../utils/ClientContext';
+import { setVolume } from '../../../utils/useSonos';
 import { Grid, Slider, Popover } from '@material-ui/core';
 import VolumeUp from '@material-ui/icons/VolumeUp';
 
@@ -25,7 +26,7 @@ const useStyles = makeStyles({
 
 const VolumeSlider = () => {
   const classes = useStyles();
-  const [value, setValue] = useState(50);
+  const [value, setValue] = useState(30);
   const [anchorEl, setAnchorEl] = useState(null);
   const ref = createRef();
   const open = Boolean(anchorEl);
@@ -33,12 +34,13 @@ const VolumeSlider = () => {
   const [state, setState] = useContext(ClientContext);
   const devices = state.devices.filter((device) => device.selected === true);
 
-  const handleChange = (event, newValue) => {
-    console.log(event.currentTar);
+  const handleChange = (device, newValue) => {
+    console.log(device, newValue);
     if (devices.length > 1) {
       setAnchorEl(ref.current);
     }
     setValue(newValue);
+    setVolume(device, newValue);
   };
 
   const handleClose = () => {
@@ -60,7 +62,7 @@ const VolumeSlider = () => {
               className={classes.slider}
               value={value}
               disabled={disabled}
-              onChange={handleChange}
+              onChange={(event, value) => handleChange('master', value)}
               aria-labelledby='volume-slider'
             />
           </Grid>

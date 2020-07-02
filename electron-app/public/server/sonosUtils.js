@@ -32,28 +32,34 @@ ipcMain.on('fetchDevices', async (event, arg) => {
 });
 
 // Toggle Playback
-function togglePlayback() {
-  groupsAvail[0]
-    .CoordinatorDevice()
-    .play('x-rincon-mp3radio://192.168.0.194:5000/stream.mp3')
-    .then((success) => {
-      console.log('Yeay');
-    })
-    .catch((err) => {
-      console.log('Error occurred %j', err);
-    });
+function togglePlayback(startPlaying) {
+  if (startPlaying) {
+    groupsAvail[0]
+      .CoordinatorDevice()
+      .play('x-rincon-mp3radio://192.168.0.194:5000/stream.mp3')
+      .then((success) => {
+        console.log('Yeay');
+      })
+      .catch((err) => {
+        console.log('Error occurred %j', err);
+      });
+  } else {
+    groupsAvail[0].CoordinatorDevice().stop();
+  }
 }
 
 ipcMain.on('togglePlayback', (event, arg) => {
-  selectedDevices = arg;
-  console.log('selected devices', arg);
-  togglePlayback();
+  togglePlayback(arg.startPlaying);
 });
 
 // Volume control
 
+function setVolume(device, volume) {
+  console.log('Setting volume on ', device, 'at ', volume);
+  groupsAvail[0].CoordinatorDevice().setVolume(volume);
+}
+
 ipcMain.on('setVolume', (event, arg) => {
-  selectedDevices = arg;
   console.log('selected devices', arg);
-  togglePlayback();
+  setVolume(arg.device, arg.volume);
 });
