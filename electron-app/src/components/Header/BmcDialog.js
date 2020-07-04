@@ -1,22 +1,18 @@
-import React, { useEffect, useState } from 'react';
 import {
   Button,
   Dialog,
   DialogContent,
   DialogTitle,
-  DialogContentText,
   List,
-  Chip,
-  Avatar,
   ListItem,
   ListItemIcon,
   ListItemText,
-  Divider,
 } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 import MuiDialogActions from '@material-ui/core/DialogActions';
+import { makeStyles } from '@material-ui/core/styles';
 import LocalCafeIcon from '@material-ui/icons/LocalCafe';
-import FavoriteIcon from '@material-ui/icons/Favorite';
+import React, { useEffect, useState } from 'react';
+const { shell } = window.require('electron');
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,6 +39,11 @@ const compare = (a, b) => {
     return -1;
   }
   return 0;
+};
+
+const handleClick = (e) => {
+  e.preventDefault();
+  shell.openExternal('https://buymeacoff.ee/budgie');
 };
 
 export default function CustomizedDialogs(props) {
@@ -103,8 +104,9 @@ export default function CustomizedDialogs(props) {
             variant='contained'
             color='secondary'
             style={{ textTransform: 'none' }}
+            onClick={handleClick}
           >
-            Support with a coffee
+            Buy me a coffee
           </Button>
         </MuiDialogActions>
       </Dialog>

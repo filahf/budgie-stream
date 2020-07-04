@@ -19,9 +19,9 @@ const Header = (props) => {
         alignItems='center'
       >
         <Grid item>
-          <IconButton aria-label='coffe' onClick={(e) => setShowBmc(true)}>
-            <FavoriteBorderIcon />
-          </IconButton>
+          <Button aria-label='coffe' onClick={(e) => setShowBmc(true)}>
+            Donate
+          </Button>
         </Grid>
         <Grid item>
           <IconButton
