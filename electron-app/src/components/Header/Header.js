@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Grid, IconButton, Button } from '@material-ui/core';
+import { Grid, IconButton, Tooltip } from '@material-ui/core';
 import SettingsIcon from '@material-ui/icons/Settings';
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import LocalCafeOutlinedIcon from '@material-ui/icons/LocalCafeOutlined';
 import SettingsDialog from './SettingsDialog';
 import BmcDialog from './BmcDialog';
 
@@ -19,17 +19,25 @@ const Header = (props) => {
         alignItems='center'
       >
         <Grid item>
-          <Button aria-label='coffe' onClick={(e) => setShowBmc(true)}>
-            Donate
-          </Button>
+          <Tooltip title='Support this project' aria-label='add'>
+            <IconButton
+              size='small'
+              aria-label='coffe'
+              onClick={(e) => setShowBmc(true)}
+            >
+              <LocalCafeOutlinedIcon />
+            </IconButton>
+          </Tooltip>
         </Grid>
         <Grid item>
-          <IconButton
-            onClick={(e) => setShowSettings(true)}
-            aria-label='settings'
-          >
-            <SettingsIcon />
-          </IconButton>
+          <Tooltip title='Settings'>
+            <IconButton
+              onClick={(e) => setShowSettings(true)}
+              aria-label='settings'
+            >
+              <SettingsIcon />
+            </IconButton>
+          </Tooltip>
         </Grid>
       </Grid>
       <SettingsDialog
