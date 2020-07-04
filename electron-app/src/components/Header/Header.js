@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Grid, IconButton, Button } from '@material-ui/core';
 import SettingsIcon from '@material-ui/icons/Settings';
-import FreeBreakfastIcon from '@material-ui/icons/FreeBreakfast';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import SettingsDialog from './SettingsDialog';
-import BmcDialog from './Bmc';
+import BmcDialog from './BmcDialog';
 
 const Header = (props) => {
   const [showSettings, setShowSettings] = useState(false);
@@ -20,7 +20,7 @@ const Header = (props) => {
       >
         <Grid item>
           <IconButton aria-label='coffe' onClick={(e) => setShowBmc(true)}>
-            <FreeBreakfastIcon />
+            <FavoriteBorderIcon />
           </IconButton>
         </Grid>
         <Grid item>

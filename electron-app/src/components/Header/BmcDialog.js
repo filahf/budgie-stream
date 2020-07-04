@@ -1,14 +1,33 @@
 import React, { useEffect, useState } from 'react';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
+import {
+  Button,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  Typography,
+  Chip,
+  Badge,
+} from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import MuiDialogActions from '@material-ui/core/DialogActions';
-import Typography from '@material-ui/core/Typography';
+import LocalCafeIcon from '@material-ui/icons/LocalCafe';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
+    '& > *': {
+      margin: theme.spacing(0.5),
+    },
+  },
+}));
 
 export default function CustomizedDialogs(props) {
   const { close } = props;
+  const classes = useStyles();
   const [supporters, setSupporters] = useState(null);
+
   const loadSupporters = async () => {
     const response = await fetch(
       'https://filahf.github.io/budgie-stream-supporters/supporters.json'
@@ -28,6 +47,7 @@ export default function CustomizedDialogs(props) {
         onClose={close}
         aria-labelledby='customized-dialog-title'
         open={props.open}
+        scroll='paper'
       >
         <DialogTitle id='customized-dialog-title' onClose={close}>
           Supporters of Budgie Stream
@@ -42,20 +62,22 @@ export default function CustomizedDialogs(props) {
             dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
             ac consectetur ac, vestibulum at eros.
           </Typography>
-          <Typography gutterBottom>
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-            Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor
-            auctor.
-          </Typography>
-          <Typography gutterBottom>
-            Aenean lacinia bibendum nulla sed consectetur. Praesent commodo
-            cursus magna, vel scelerisque nisl consectetur et. Donec sed odio
-            dui. Donec ullamcorper nulla non metus auctor fringilla.
-          </Typography>
+          <div className={classes.root}>
+            <Chip
+              label='Filip'
+              color='secondary'
+              style={{ backgroundColor: '#a3be8c', color: 'black' }}
+            />
+          </div>
         </DialogContent>
         <MuiDialogActions>
-          <Button variant='contained' color='secondary'>
-            Support
+          <Button
+            variant='contained'
+            color='secondary'
+            style={{ textTransform: 'none' }}
+            endIcon={<LocalCafeIcon />}
+          >
+            Buy me a coffee
           </Button>
         </MuiDialogActions>
       </Dialog>
