@@ -26,7 +26,7 @@ const useStyles = makeStyles({
 
 const VolumeSlider = () => {
   const classes = useStyles();
-  const [value, setValue] = useState(30);
+  const [value, setValue] = useState({ master: 30 });
   const [anchorEl, setAnchorEl] = useState(null);
   const ref = createRef();
   const open = Boolean(anchorEl);
@@ -35,12 +35,20 @@ const VolumeSlider = () => {
   const devices = state.devices.filter((device) => device.selected === true);
 
   const handleChange = (device, newValue) => {
-    console.log(device, newValue);
+    //console.log(device, newValue);
     if (devices.length > 1) {
       setAnchorEl(ref.current);
     }
-    setValue(newValue);
-    setVolume(device, newValue);
+    setValue((prevState) => ({
+      ...prevState,
+      [device]: newValue,
+    }));
+    console.log(value);
+    //setVolume(device, newValue);
+  };
+
+  const getValue = () => {
+    return 30;
   };
 
   const handleClose = () => {
@@ -60,7 +68,7 @@ const VolumeSlider = () => {
           <Grid item ref={ref} xs>
             <Slider
               className={classes.slider}
-              value={value}
+              value={value.master}
               disabled={disabled}
               onChange={(event, value) => handleChange('master', value)}
               aria-labelledby='volume-slider'
@@ -82,7 +90,11 @@ const VolumeSlider = () => {
           horizontal: 'center',
         }}
       >
-        <DevicesVolume devices={devices} />
+        <DevicesVolume
+          devices={devices}
+          handleChange={handleChange}
+          getValue={value}
+        />
       </Popover>
     </>
   );

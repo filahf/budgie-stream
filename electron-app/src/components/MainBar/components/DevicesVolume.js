@@ -23,9 +23,11 @@ const useStyles = makeStyles((theme) => ({
 const DevicesVolume = (props) => {
   const classes = useStyles();
   const devices = props.devices;
+  const value = props.getValue;
 
-  const handleChange = (device, newValue) => {
-    console.log(device, newValue);
+  const getValue = (name) => {
+    console.log(name);
+    return value.name;
   };
 
   return (
@@ -38,7 +40,10 @@ const DevicesVolume = (props) => {
             secondary={
               <React.Fragment>
                 <Slider
-                  onChange={(event, value) => handleChange(device.name, value)}
+                  value={value[device.name] ? value[device.name] : 1}
+                  onChange={(event, value) =>
+                    props.handleChange(device.name, value)
+                  }
                   className={classes.slider}
                 />
               </React.Fragment>
