@@ -23,7 +23,9 @@ function createWindow() {
   );
 
   // Open the DevTools.
-  win.webContents.openDevTools();
+  if (isDev) {
+    win.webContents.openDevTools();
+  }
 }
 
 // This method will be called when Electron has finished
