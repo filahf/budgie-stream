@@ -7,6 +7,7 @@ import Container from '@material-ui/core/Container';
 import MainBar from './components/MainBar/MainBar';
 import Header from './components/Header/Header';
 import SelectDevices from './components/Devices/SelectDevices';
+import SelectSource from './components/AudioSource/SelectSource';
 import Welcome from './components/Welcome/Welcome';
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
         <Container component='main' className={classes.main}>
           <Welcome>
             <SelectDevices />
+            <SelectSource />
           </Welcome>
         </Container>
         <div className={classes.footer}>

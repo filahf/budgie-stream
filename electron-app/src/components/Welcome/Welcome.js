@@ -41,7 +41,7 @@ const Welcome = (props) => {
           <BudgieLogo style={{ height: 250, width: 'auto' }} />
         </Grid>
       </Grid>
-      <Grid container direction='row' justify='center' alignItems='center'>
+      <Grid container direction='column' justify='center' alignItems='center'>
         {props.children}
       </Grid>
     </>

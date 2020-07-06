@@ -12,7 +12,7 @@ const SelectDevices = () => {
         color='secondary'
         size='large'
         onClick={() => setOpen(true)}
-        style={{ marginTop: '2rem', color: '#d8dee9' }}
+        style={{ color: '#d8dee9' }}
       >
         Select Devices
       </Button>
