@@ -1,6 +1,8 @@
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
 const isDev = require('electron-is-dev');
+const { ipcMain } = require('electron');
+var ip = require('ip');
 
 function createWindow() {
   // Create the browser window.
@@ -48,6 +50,13 @@ app.on('activate', () => {
   if (BrowserWindow.getAllWindows().length === 0) {
     createWindow();
   }
+});
+
+ipcMain.on('appInfo', (event) => {
+  event.sender.send('appInfo', {
+    ip: ip.address(),
+    appVersion: app.getVersion(),
+  });
 });
 
 // In this file you can include the rest of your app's specific main process

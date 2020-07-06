@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   AppBar,
   Button,
@@ -15,6 +15,8 @@ import Slide from '@material-ui/core/Slide';
 import { makeStyles } from '@material-ui/core/styles';
 import CloseIcon from '@material-ui/icons/Close';
 import Store from '../../utils/userConfig';
+
+const { ipcRenderer } = window.require('electron');
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -33,7 +35,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 const SettingsDialog = (props) => {
   const { close } = props;
   const classes = useStyles();
-  const addr = Store.get('ip');
+  const [ip, setIp] = useState('');
+  const [appVersion, setAppVersion] = useState(null);
   const [sampleRate, setSampleRate] = useState(Store.get('samplerate'));
 
   const handleSampleChange = (e) => {
@@ -44,6 +47,21 @@ const SettingsDialog = (props) => {
     Store.set('samplerate', sampleRate);
     close();
   };
+
+  const fetchInfo = () => {
+    ipcRenderer.send('appInfo', null);
+    ipcRenderer.on('appInfo', (event, arg) => {
+      ipcRenderer.removeAllListeners('appInfo');
+      const { appVersion, ip } = arg;
+      console.log(arg);
+      setAppVersion(appVersion);
+      setIp(ip);
+    });
+  };
+
+  useEffect(() => {
+    fetchInfo();
+  }, []);
 
   return (
     <Dialog
@@ -72,20 +90,26 @@ const SettingsDialog = (props) => {
       </AppBar>
       <List>
         <ListItem>
-          <ListItemText primary='Budgie Version' secondary='0.0.1' />
+          <ListItemText primary='Budgie Version' secondary={appVersion} />
         </ListItem>
         <ListItem>
-          <ListItemText primary='Local IP' secondary={addr} />
+          <ListItemText primary='Local IP' secondary={ip} />
         </ListItem>
         <ListItem>
-          <TextField
-            label='Sample Rate in Hz'
-            type='number'
-            value={sampleRate}
-            onChange={handleSampleChange}
-            InputLabelProps={{
-              shrink: true,
-            }}
+          <ListItemText
+            primary='Sample Rate in Hz'
+            secondary={
+              <>
+                <TextField
+                  type='number'
+                  value={sampleRate || 48000}
+                  onChange={handleSampleChange}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
+              </>
+            }
           />
         </ListItem>
       </List>
