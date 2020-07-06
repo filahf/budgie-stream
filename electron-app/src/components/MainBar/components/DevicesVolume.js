@@ -25,11 +25,6 @@ const DevicesVolume = (props) => {
   const devices = props.devices;
   const value = props.getValue;
 
-  const getValue = (name) => {
-    console.log(name);
-    return value.name;
-  };
-
   return (
     <List className={classes.root}>
       {devices.map((device) => (

@@ -1,7 +1,7 @@
 import React, { useState, createRef, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { ClientContext } from '../../../utils/ClientContext';
-import { setVolume } from '../../../utils/useSonos';
+//import { setVolume } from '../../../utils/useSonos';
 import { Grid, Slider, Popover } from '@material-ui/core';
 import VolumeUp from '@material-ui/icons/VolumeUp';
 
@@ -34,21 +34,28 @@ const VolumeSlider = () => {
   const [state, setState] = useContext(ClientContext);
   const devices = state.devices.filter((device) => device.selected === true);
 
-  const handleChange = (device, newValue) => {
-    //console.log(device, newValue);
-    if (devices.length > 1) {
-      setAnchorEl(ref.current);
-    }
+  const updateVolumeState = (device, newValue) => {
     setValue((prevState) => ({
       ...prevState,
       [device]: newValue,
     }));
     console.log(value);
-    //setVolume(device, newValue);
   };
 
-  const getValue = () => {
-    return 30;
+  const handleChange = (device, newValue) => {
+    // Toggle mulitple device volume controll
+    if (devices.length > 1) {
+      setAnchorEl(ref.current);
+    }
+    // if master update all
+    if (device === 'master') {
+      const keys = Object.keys(value);
+      keys.map((x) => updateVolumeState(x, newValue));
+    } else {
+      // Update single device
+      updateVolumeState(device, newValue);
+    }
+    //setVolume(device, newValue);
   };
 
   const handleClose = () => {
