@@ -95,6 +95,7 @@ export default function BmcDialog(props) {
             ) : (
               supporters.sort(compare).map((supporter, id) => (
                 <Tooltip
+                  key={id}
                   title={'Bought ' + supporter.value + ' coffee(s)!'}
                   placement='top'
                   arrow
@@ -102,7 +103,6 @@ export default function BmcDialog(props) {
                   <Chip
                     icon={<FavoriteIcon style={{ color: '#bf616a' }} />}
                     variant='outlined'
-                    key={id}
                     label={supporter.name}
                   />
                 </Tooltip>
