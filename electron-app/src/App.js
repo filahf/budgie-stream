@@ -16,7 +16,7 @@ function App() {
     <ClientProvider>
       <div className={classes.root}>
         <Header />
-        <Container component='main' className={classes.main}>
+        <Container component='main'>
           <Welcome>
             <SelectDevices />
             <SelectSource />
@@ -35,10 +35,6 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     minHeight: '100vh',
-  },
-  main: {
-    marginTop: theme.spacing(0),
-    marginBottom: theme.spacing(2),
   },
   footer: {
     marginTop: 'auto',

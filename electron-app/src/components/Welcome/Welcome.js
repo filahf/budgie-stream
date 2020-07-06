@@ -8,7 +8,7 @@ const useStyles = makeStyles(() => ({
     flex: '1',
     marginTop: '0',
     paddingLeft: '4rem',
-    paddingBottom: '4rem',
+    paddingBottom: '3rem',
   },
 }));
 
