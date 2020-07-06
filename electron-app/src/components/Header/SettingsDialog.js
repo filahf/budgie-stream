@@ -92,28 +92,6 @@ const SettingsDialog = (props) => {
             }}
           />
         </ListItem>
-        <ListItem>
-          <ListItemText primary='Source' secondary='Screen 1' />
-        </ListItem>
-        <ListItem>
-          <FormControl style={{ minWidth: '200px' }}>
-            <InputLabel id='demo-simple-select-label'>Sound Source</InputLabel>
-            <Select
-              labelId='demo-simple-select-placeholder-label-label'
-              id='demo-simple-select-placeholder-label'
-              // value={age}
-              // onChange={handleChange}
-              displayEmpty
-            >
-              <MenuItem value=''>
-                <em>None</em>
-              </MenuItem>
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
-            </Select>
-          </FormControl>
-        </ListItem>
       </List>
     </Dialog>
   );
