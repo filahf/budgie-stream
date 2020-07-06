@@ -5,12 +5,18 @@ import {
   DialogTitle,
   List,
   ListItem,
-  ListItemIcon,
+  Avatar,
+  ListItemAvatar,
   ListItemText,
+  Chip,
+  Typography,
+  ListItemIcon,
+  Tooltip,
 } from '@material-ui/core';
 import MuiDialogActions from '@material-ui/core/DialogActions';
 import { makeStyles } from '@material-ui/core/styles';
 import LocalCafeIcon from '@material-ui/icons/LocalCafe';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 import React, { useEffect, useState } from 'react';
 const { shell } = window.require('electron');
 
@@ -22,12 +28,12 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: 'wrap',
     '& > *': {
       margin: theme.spacing(1),
-      marginTop: 0,
     },
   },
   action: {
     display: 'flex',
     justifyContent: 'center',
+    marginBottom: 0,
   },
 }));
 
@@ -49,7 +55,7 @@ const handleClick = (e) => {
 export default function CustomizedDialogs(props) {
   const { close } = props;
   const classes = useStyles();
-  const [supporters, setSupporters] = useState(null);
+  const [supporters, setSupporters] = useState({});
 
   const loadSupporters = async () => {
     const response = await fetch(
@@ -71,32 +77,44 @@ export default function CustomizedDialogs(props) {
         aria-labelledby='customized-dialog-title'
         open={props.open}
         scroll='paper'
-        maxWidth='sm'
+        maxWidth='xs'
       >
         <DialogTitle
           id='customized-dialog-title'
-          onClose={close}
           style={{ textAlign: 'center', marginBottom: 0, paddingBottom: 0 }}
         >
-          Supporters
+          Sponsors & Supporters
         </DialogTitle>
         <DialogContent>
+          <Typography>
+            This project is open source and free to use. If you would like to
+            support the development of Budgie Stream, consider buying me a
+            coffee.
+          </Typography>
+          <div className={classes.action}>
+            <Typography style={{ marginTop: '1.5rem' }} variant='subtitle2'>
+              Supporters
+            </Typography>
+          </div>
           <div className={classes.root}>
-            <List dense>
-              {supporters &&
-                supporters.sort(compare).map((supporter, id) => (
-                  <ListItem key={id}>
-                    <ListItemIcon>
-                      <LocalCafeIcon />
-                      &nbsp;x{supporter.value}
-                    </ListItemIcon>
-                    <ListItemText
-                      primaryTypographyProps={{ variant: 'subtitle2' }}
-                      primary={supporter.name}
-                    />
-                  </ListItem>
-                ))}
-            </List>
+            {Object.entries(supporters).length === 0 ? (
+              <Chip variant='outlined' label='No supporters yet' />
+            ) : (
+              supporters.sort(compare).map((supporter, id) => (
+                <Tooltip
+                  title={'Bought ' + supporter.value + ' coffee(s)!'}
+                  placement='top'
+                  arrow
+                >
+                  <Chip
+                    icon={<FavoriteIcon style={{ color: '#bf616a' }} />}
+                    variant='outlined'
+                    key={id}
+                    label={supporter.name}
+                  />
+                </Tooltip>
+              ))
+            )}
           </div>
         </DialogContent>
         <MuiDialogActions className={classes.action}>
