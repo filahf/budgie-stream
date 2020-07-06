@@ -6,6 +6,18 @@ const socket = socketIOClient(ENDPOINT);
 var audioContext = null;
 var context = null;
 
+/**
+ * Return all all audio sources
+ */
+
+// export const getSources = async () => {
+//   desktopCapturer
+//     .getSources({ types: ['window', 'screen'] })
+//     .then(async (sources) => {
+//       return sources;
+//     });
+// };
+
 export const stopRecording = async () => {
   await context.close();
 };
