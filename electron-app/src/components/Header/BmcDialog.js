@@ -1,23 +1,16 @@
+import React, { useEffect, useState } from 'react';
 import {
   Button,
+  Chip,
   Dialog,
   DialogContent,
   DialogTitle,
-  List,
-  ListItem,
-  Avatar,
-  ListItemAvatar,
-  ListItemText,
-  Chip,
-  Typography,
-  ListItemIcon,
   Tooltip,
+  Typography,
 } from '@material-ui/core';
 import MuiDialogActions from '@material-ui/core/DialogActions';
 import { makeStyles } from '@material-ui/core/styles';
-import LocalCafeIcon from '@material-ui/icons/LocalCafe';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import React, { useEffect, useState } from 'react';
 const { shell } = window.require('electron');
 
 const useStyles = makeStyles((theme) => ({
@@ -36,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 0,
   },
 }));
-
+// Sort supporters Desc
 const compare = (a, b) => {
   if (a.value < b.value) {
     return 1;
@@ -52,7 +45,7 @@ const handleClick = (e) => {
   shell.openExternal('https://buymeacoff.ee/budgie');
 };
 
-export default function CustomizedDialogs(props) {
+export default function BmcDialog(props) {
   const { close } = props;
   const classes = useStyles();
   const [supporters, setSupporters] = useState({});
