@@ -10,10 +10,6 @@ import {
   TextField,
   Toolbar,
   Typography,
-  InputLabel,
-  FormControl,
-  Select,
-  MenuItem,
 } from '@material-ui/core';
 import Slide from '@material-ui/core/Slide';
 import { makeStyles } from '@material-ui/core/styles';

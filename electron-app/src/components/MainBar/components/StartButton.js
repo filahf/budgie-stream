@@ -73,11 +73,7 @@ export default function CircularIntegration() {
           style={{ color: '#5e81ac' }}
           onClick={handleButtonClick}
         >
-          {state.playing ? (
-            <Stop fontSize='large' />
-          ) : (
-            <PlayArrow fontSize='large' />
-          )}
+          {state.playing ? <Stop /> : <PlayArrow />}
         </Fab>
         {loading && (
           <CircularProgress size={68} className={classes.fabProgress} />
