@@ -1,5 +1,5 @@
 {
-  "name": "my-app",
+  "name": "budgie-stream",
   "version": "0.1.0",
   "private": true,
   "homepage": "./",
@@ -33,8 +33,8 @@
     "react-test": "react-scripts test",
     "react-eject": "react-scripts eject",
     "electron-build": "electron-builder",
-    "package": "electron-build -c.extraMetadata.main=build/electron.js --publish never",
-    "build": "npm run react-build && npm run package",
+    "package": "yarn electron-build -c.extraMetadata.main=build/electron.js --publish never",
+    "build": "yarn react-build && yarn package",
     "start": "concurrently \"cross-env BROWSER=none npm run react-start\" \"wait-on http://localhost:3000 && electron . \""
   },
   "eslintConfig": {
@@ -70,6 +70,9 @@
     "files": [
       "build/**/*",
       "node_modules/**/*"
-    ]
+    ],
+    "win": {
+      "icon": "build/icon.png"
+    }
   }
 }
