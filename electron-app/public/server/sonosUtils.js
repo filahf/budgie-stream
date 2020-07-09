@@ -5,7 +5,7 @@ const discovery = new Sonos.AsyncDeviceDiscovery();
 var ip = require('ip');
 
 let groupsAvail = {};
-let selectedDevices = [];
+
 // Fetch devices
 async function fetchDevices() {
   return discovery

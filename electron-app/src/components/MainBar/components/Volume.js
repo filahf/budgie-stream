@@ -47,27 +47,21 @@ const VolumeSlider = () => {
   const disabled = !!!devices.length;
 
   const prevMasterValue = usePreviousValue(state.masterVol);
-  const [masterValue, setMasterValue] = useState(state.masterVol);
+  const [masterValue, setMasterValue] = useState(null);
 
   const [anchorEl, setAnchorEl] = useState(null);
   const ref = createRef();
   const open = Boolean(anchorEl);
 
   useEffect(() => {
-    const avgVol = devices.reduce(
-      (totalCalories, device) => totalCalories + device.vol,
-      0
-    );
-    console.log('avgVol', avgVol);
+    const avgVol =
+      devices.reduce((totalCalories, device) => totalCalories + device.vol, 0) /
+      devices.length;
+    setMasterValue(avgVol);
   }, [devices]);
 
   const handleClose = () => {
     setAnchorEl(null);
-  };
-
-  const getMasterVol = () => {
-    console.log(state.masterVol);
-    return state.masterVol;
   };
 
   const handleMasterVol = (newMasterValue) => {
@@ -75,13 +69,13 @@ const VolumeSlider = () => {
     if (devices.length > 1) {
       setAnchorEl(ref.current);
     }
-
-    setState((prevState) => ({
-      ...prevState,
-      masterVol: newMasterValue,
-    }));
-    const adjustVol = newMasterValue - prevMasterValue;
-    handleVolChange(null, null, adjustVol);
+    // If we're only controlling one device, make it equal to the master volume
+    if (devices.length === 1) {
+      handleVolChange(devices[0].name, newMasterValue, null);
+    } else {
+      const adjustVol = newMasterValue - prevMasterValue;
+      handleVolChange(null, null, adjustVol);
+    }
   };
 
   const handleVolChange = (deviceName, newValue, adjust = false) => {
