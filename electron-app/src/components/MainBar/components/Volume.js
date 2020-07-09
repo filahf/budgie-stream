@@ -1,7 +1,13 @@
-import React, { useState, createRef, useContext } from 'react';
+import React, {
+  useState,
+  createRef,
+  useContext,
+  useEffect,
+  useRef,
+} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { ClientContext } from '../../../utils/ClientContext';
-import { setVolume } from '../../../utils/useSonos';
+//import { setVolume } from '../../../utils/useSonos';
 import { Grid, Slider, Popover } from '@material-ui/core';
 import VolumeUp from '@material-ui/icons/VolumeUp';
 
@@ -24,31 +30,71 @@ const useStyles = makeStyles({
   },
 });
 
+const usePreviousValue = (value) => {
+  const ref = useRef();
+  useEffect(() => {
+    ref.current = value;
+  });
+  return ref.current;
+};
+
 const VolumeSlider = () => {
   const classes = useStyles();
-  const [value, setValue] = useState(30);
+
+  const [state, setState] = useContext(ClientContext);
+  const devices = state.devices.filter((device) => device.selected === true);
+  // Only control the volume if any devices are selected
+  const disabled = !!!devices.length;
+
+  const prevMasterValue = usePreviousValue(state.masterVol);
+  const [masterValue, setMasterValue] = useState(null);
+
   const [anchorEl, setAnchorEl] = useState(null);
   const ref = createRef();
   const open = Boolean(anchorEl);
-  // eslint-disable-next-line
-  const [state, setState] = useContext(ClientContext);
-  const devices = state.devices.filter((device) => device.selected === true);
 
-  const handleChange = (device, newValue) => {
-    console.log(device, newValue);
-    if (devices.length > 1) {
-      setAnchorEl(ref.current);
-    }
-    setValue(newValue);
-    setVolume(device, newValue);
-  };
+  useEffect(() => {
+    const avgVol =
+      devices.reduce((totalCalories, device) => totalCalories + device.vol, 0) /
+      devices.length;
+    setMasterValue(avgVol);
+  }, [devices]);
 
   const handleClose = () => {
     setAnchorEl(null);
   };
 
-  // Only control the volume if any devices are selected
-  const disabled = !!!devices.length;
+  const handleMasterVol = (newMasterValue) => {
+    // Toggle multiple devices control
+    if (devices.length > 1) {
+      setAnchorEl(ref.current);
+    }
+    // If we're only controlling one device, make it equal to the master volume
+    if (devices.length === 1) {
+      handleVolChange(devices[0].name, newMasterValue, null);
+    } else {
+      const adjustVol = newMasterValue - prevMasterValue;
+      handleVolChange(null, null, adjustVol);
+    }
+  };
+
+  const handleVolChange = (deviceName, newValue, adjust = false) => {
+    let newState = [...state.devices];
+    if (!adjust) {
+      const deviceIndex = state.devices.findIndex(
+        (device) => device.name === deviceName
+      );
+
+      newState[deviceIndex] = { ...newState[deviceIndex], vol: newValue };
+    } else {
+      newState.map((x) => (x.selected ? (x.vol = x.vol + adjust) : x));
+    }
+
+    setState((prevState) => ({
+      ...prevState,
+      devices: newState,
+    }));
+  };
 
   return (
     <>
@@ -60,9 +106,9 @@ const VolumeSlider = () => {
           <Grid item ref={ref} xs>
             <Slider
               className={classes.slider}
-              value={value}
+              value={masterValue}
               disabled={disabled}
-              onChange={(event, value) => handleChange('master', value)}
+              onChange={(event, value) => handleMasterVol(value)}
               aria-labelledby='volume-slider'
             />
           </Grid>
@@ -82,7 +128,7 @@ const VolumeSlider = () => {
           horizontal: 'center',
         }}
       >
-        <DevicesVolume devices={devices} />
+        <DevicesVolume devices={devices} handleChange={handleVolChange} />
       </Popover>
     </>
   );

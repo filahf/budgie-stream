@@ -2,6 +2,7 @@ import { startRecording, stopRecording } from './recorder';
 const { ipcRenderer } = window.require('electron');
 
 export const togglePlay = (devices, startPlaying) => {
+  //fixa den här if satsen
   if (startPlaying) {
     startRecording();
   } else {

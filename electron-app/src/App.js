@@ -7,6 +7,7 @@ import Container from '@material-ui/core/Container';
 import MainBar from './components/MainBar/MainBar';
 import Header from './components/Header/Header';
 import SelectDevices from './components/Devices/SelectDevices';
+//import SelectSource from './components/AudioSource/SelectSource';
 import Welcome from './components/Welcome/Welcome';
 
 function App() {
@@ -15,7 +16,7 @@ function App() {
     <ClientProvider>
       <div className={classes.root}>
         <Header />
-        <Container component='main' className={classes.main}>
+        <Container component='main'>
           <Welcome>
             <SelectDevices />
           </Welcome>
@@ -33,10 +34,6 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     minHeight: '100vh',
-  },
-  main: {
-    marginTop: theme.spacing(0),
-    marginBottom: theme.spacing(2),
   },
   footer: {
     marginTop: 'auto',

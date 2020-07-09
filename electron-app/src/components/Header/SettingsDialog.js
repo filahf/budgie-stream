@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   AppBar,
   Button,
@@ -10,15 +10,13 @@ import {
   TextField,
   Toolbar,
   Typography,
-  InputLabel,
-  FormControl,
-  Select,
-  MenuItem,
 } from '@material-ui/core';
 import Slide from '@material-ui/core/Slide';
 import { makeStyles } from '@material-ui/core/styles';
 import CloseIcon from '@material-ui/icons/Close';
 import Store from '../../utils/userConfig';
+
+const { ipcRenderer } = window.require('electron');
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -37,7 +35,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 const SettingsDialog = (props) => {
   const { close } = props;
   const classes = useStyles();
-  const addr = Store.get('ip');
+  const [ip, setIp] = useState('');
+  const [appVersion, setAppVersion] = useState(null);
   const [sampleRate, setSampleRate] = useState(Store.get('samplerate'));
 
   const handleSampleChange = (e) => {
@@ -48,6 +47,20 @@ const SettingsDialog = (props) => {
     Store.set('samplerate', sampleRate);
     close();
   };
+
+  const fetchInfo = () => {
+    ipcRenderer.send('appInfo', null);
+    ipcRenderer.on('appInfo', (event, arg) => {
+      ipcRenderer.removeAllListeners('appInfo');
+      const { appVersion, ip } = arg;
+      setAppVersion(appVersion);
+      setIp(ip);
+    });
+  };
+
+  useEffect(() => {
+    fetchInfo();
+  }, []);
 
   return (
     <Dialog
@@ -76,43 +89,27 @@ const SettingsDialog = (props) => {
       </AppBar>
       <List>
         <ListItem>
-          <ListItemText primary='Budgie Version' secondary='0.0.1' />
+          <ListItemText primary='Budgie Version' secondary={appVersion} />
         </ListItem>
         <ListItem>
-          <ListItemText primary='Local IP' secondary={addr} />
+          <ListItemText primary='Local IP' secondary={ip} />
         </ListItem>
         <ListItem>
-          <TextField
-            label='Sample Rate in Hz'
-            type='number'
-            value={sampleRate}
-            onChange={handleSampleChange}
-            InputLabelProps={{
-              shrink: true,
-            }}
+          <ListItemText
+            primary='Sample Rate in Hz'
+            secondary={
+              <>
+                <TextField
+                  type='number'
+                  value={sampleRate || 48000}
+                  onChange={handleSampleChange}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
+              </>
+            }
           />
-        </ListItem>
-        <ListItem>
-          <ListItemText primary='Source' secondary='Screen 1' />
-        </ListItem>
-        <ListItem>
-          <FormControl style={{ minWidth: '200px' }}>
-            <InputLabel id='demo-simple-select-label'>Sound Source</InputLabel>
-            <Select
-              labelId='demo-simple-select-placeholder-label-label'
-              id='demo-simple-select-placeholder-label'
-              // value={age}
-              // onChange={handleChange}
-              displayEmpty
-            >
-              <MenuItem value=''>
-                <em>None</em>
-              </MenuItem>
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
-            </Select>
-          </FormControl>
         </ListItem>
       </List>
     </Dialog>

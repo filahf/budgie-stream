@@ -2,7 +2,7 @@ import { List, ListItem, ListItemText, Slider } from '@material-ui/core/';
 import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     width: '100%',
     maxWidth: '36ch',
@@ -24,13 +24,9 @@ const DevicesVolume = (props) => {
   const classes = useStyles();
   const devices = props.devices;
 
-  const handleChange = (device, newValue) => {
-    console.log(device, newValue);
-  };
-
   return (
     <List className={classes.root}>
-      {devices.map((device) => (
+      {devices.map((device, index) => (
         <ListItem key={device.name} alignItems='flex-start'>
           <ListItemText
             className={classes.typo}
@@ -38,7 +34,10 @@ const DevicesVolume = (props) => {
             secondary={
               <React.Fragment>
                 <Slider
-                  onChange={(event, value) => handleChange(device.name, value)}
+                  value={devices[index].vol}
+                  onChange={(event, value) =>
+                    props.handleChange(device.name, value)
+                  }
                   className={classes.slider}
                 />
               </React.Fragment>

@@ -1,14 +1,18 @@
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
 const isDev = require('electron-is-dev');
+const { ipcMain } = require('electron');
+var ip = require('ip');
 
 function createWindow() {
   // Create the browser window.
   const win = new BrowserWindow({
     width: 800,
     height: 600,
+    resizable: false,
     webPreferences: {
       nodeIntegration: true,
+      enableRemoteModule: true,
     },
   });
   // Hide menubar
@@ -22,7 +26,9 @@ function createWindow() {
   );
 
   // Open the DevTools.
-  win.webContents.openDevTools();
+  if (isDev) {
+    win.webContents.openDevTools();
+  }
 }
 
 // This method will be called when Electron has finished
@@ -47,6 +53,14 @@ app.on('activate', () => {
   }
 });
 
+ipcMain.on('appInfo', (event) => {
+  event.sender.send('appInfo', {
+    ip: ip.address(),
+    appVersion: app.getVersion(),
+  });
+});
+
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
 require('./server/index.js');
+require('./server/sonosUtils');

@@ -1,34 +1,50 @@
 import React, { useState } from 'react';
-import { Grid, IconButton } from '@material-ui/core';
+import { Grid, IconButton, Tooltip } from '@material-ui/core';
 import SettingsIcon from '@material-ui/icons/Settings';
+import LocalCafeOutlinedIcon from '@material-ui/icons/LocalCafeOutlined';
 import SettingsDialog from './SettingsDialog';
+import BmcDialog from './BmcDialog';
 
 const Header = (props) => {
-  const [open, setOpen] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
+  const [showBmc, setShowBmc] = useState(false);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
   return (
     <>
       <Grid
         container
         direction='row'
         style={{ padding: '1rem' }}
-        justify='flex-end'
+        justify='space-between'
         alignItems='center'
       >
         <Grid item>
-          <IconButton onClick={handleClickOpen} aria-label='settings'>
-            <SettingsIcon />
-          </IconButton>
+          <Tooltip title='Support this project' aria-label='add'>
+            <IconButton
+              size='small'
+              aria-label='coffe'
+              onClick={(e) => setShowBmc(true)}
+            >
+              <LocalCafeOutlinedIcon />
+            </IconButton>
+          </Tooltip>
+        </Grid>
+        <Grid item>
+          <Tooltip title='Settings'>
+            <IconButton
+              onClick={(e) => setShowSettings(true)}
+              aria-label='settings'
+            >
+              <SettingsIcon />
+            </IconButton>
+          </Tooltip>
         </Grid>
       </Grid>
-      <SettingsDialog close={handleClose} open={open} />
+      <SettingsDialog
+        close={(e) => setShowSettings(false)}
+        open={showSettings}
+      />
+      <BmcDialog close={(e) => setShowBmc(false)} open={showBmc} />
     </>
   );
 };

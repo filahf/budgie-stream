@@ -1,10 +1,22 @@
-import socketIOClient from 'socket.io-client';
-const { desktopCapturer } = window.require('electron');
-const ENDPOINT = 'localhost:5001';
-const socket = socketIOClient(ENDPOINT);
+//import socketIOClient from 'socket.io-client';
+const { desktopCapturer, ipcRenderer } = window.require('electron');
+//const ENDPOINT = 'localhost:5001';
+//const socket = socketIOClient(ENDPOINT);
 
 var audioContext = null;
 var context = null;
+
+/**
+ * Return all all audio sources
+ */
+
+// export const getSources = async () => {
+//   desktopCapturer
+//     .getSources({ types: ['window', 'screen'] })
+//     .then(async (sources) => {
+//       return sources;
+//     });
+// };
 
 export const stopRecording = async () => {
   await context.close();
@@ -64,5 +76,6 @@ function convertFloat32ToInt16(buffer) {
 
 function recorderProcess(e) {
   var left = e.inputBuffer.getChannelData(0);
-  socket.emit('audioStream', convertFloat32ToInt16(left));
+  //socket.emit('audioStream', convertFloat32ToInt16(left));
+  ipcRenderer.send('audioStream', convertFloat32ToInt16(left));
 }

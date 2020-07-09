@@ -1,16 +1,11 @@
 const Sonos = require('sonos');
 const { ipcMain } = require('electron');
 const discovery = new Sonos.AsyncDeviceDiscovery();
-//var device = new Sonos('192.168.0.133');
-var ip = require('ip');
-const Store = require('electron-store');
 
-// Manage store
-const store = new Store();
-store.set('ip', ip.address());
+var ip = require('ip');
 
 let groupsAvail = {};
-let selectedDevices = [];
+
 // Fetch devices
 async function fetchDevices() {
   return discovery
@@ -31,12 +26,19 @@ ipcMain.on('fetchDevices', async (event, arg) => {
   event.sender.send('devices', devices);
 });
 
+//Url
+const url = 'x-rincon-mp3radio://' + ip.address() + ':5000/stream.mp3';
+const metaData = `<DIDL-Lite xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/" xmlns:r="urn:schemas-rinconnetworks-com:metadata-1-0/" xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/"><item id="R:0/0/49" parentID="R:0/0" restricted="true"><upnp:albumArtURI>https://filahf.github.io/budgie-stream-supporters/icon.png</upnp:albumArtURI><dc:title>Budgie Stream</dc:title></item></DIDL-Lite>`;
+
 // Toggle Playback
 function togglePlayback(startPlaying) {
   if (startPlaying) {
     groupsAvail[0]
       .CoordinatorDevice()
-      .play('x-rincon-mp3radio://192.168.0.194:5000/stream.mp3')
+      .play({
+        uri: url,
+        metadata: metaData,
+      })
       .then((success) => {
         console.log('Yeay');
       })
