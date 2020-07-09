@@ -14,7 +14,7 @@ const ClientProvider = (props) => {
           ...prevState,
           devices: [
             ...prevState.devices,
-            { name: element.Name, selected: false },
+            { name: element.Name, selected: false, vol: 30 },
           ],
         }));
       });
@@ -23,8 +23,8 @@ const ClientProvider = (props) => {
 
   const [state, setState] = useState({
     devices: [
-      { name: 'Kitchen', selected: false },
-      { name: 'Living Room', selected: false },
+      { name: 'Kitchen', selected: false, vol: 25 },
+      { name: 'Living Room', selected: false, vol: 30 },
     ],
     playing: false,
   });

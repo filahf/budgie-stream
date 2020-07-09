@@ -1,4 +1,10 @@
-import React, { useState, createRef, useContext } from 'react';
+import React, {
+  useState,
+  createRef,
+  useContext,
+  useEffect,
+  useRef,
+} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { ClientContext } from '../../../utils/ClientContext';
 //import { setVolume } from '../../../utils/useSonos';
@@ -24,46 +30,77 @@ const useStyles = makeStyles({
   },
 });
 
+const usePreviousValue = (value) => {
+  const ref = useRef();
+  useEffect(() => {
+    ref.current = value;
+  });
+  return ref.current;
+};
+
 const VolumeSlider = () => {
   const classes = useStyles();
-  const [value, setValue] = useState({ master: 30 });
+
+  const [state, setState] = useContext(ClientContext);
+  const devices = state.devices.filter((device) => device.selected === true);
+  // Only control the volume if any devices are selected
+  const disabled = !!!devices.length;
+
+  const prevMasterValue = usePreviousValue(state.masterVol);
+  const [masterValue, setMasterValue] = useState(state.masterVol);
+
   const [anchorEl, setAnchorEl] = useState(null);
   const ref = createRef();
   const open = Boolean(anchorEl);
-  // eslint-disable-next-line
-  const [state, setState] = useContext(ClientContext);
-  const devices = state.devices.filter((device) => device.selected === true);
 
-  const updateVolumeState = (device, newValue) => {
-    setValue((prevState) => ({
-      ...prevState,
-      [device]: newValue,
-    }));
-    console.log(value);
-  };
-
-  const handleChange = (device, newValue) => {
-    // Toggle mulitple device volume controll
-    if (devices.length > 1) {
-      setAnchorEl(ref.current);
-    }
-    // if master update all
-    if (device === 'master') {
-      const keys = Object.keys(value);
-      keys.map((x) => updateVolumeState(x, newValue));
-    } else {
-      // Update single device
-      updateVolumeState(device, newValue);
-    }
-    //setVolume(device, newValue);
-  };
+  useEffect(() => {
+    const avgVol = devices.reduce(
+      (totalCalories, device) => totalCalories + device.vol,
+      0
+    );
+    console.log('avgVol', avgVol);
+  }, [devices]);
 
   const handleClose = () => {
     setAnchorEl(null);
   };
 
-  // Only control the volume if any devices are selected
-  const disabled = !!!devices.length;
+  const getMasterVol = () => {
+    console.log(state.masterVol);
+    return state.masterVol;
+  };
+
+  const handleMasterVol = (newMasterValue) => {
+    // Toggle multiple devices control
+    if (devices.length > 1) {
+      setAnchorEl(ref.current);
+    }
+
+    setState((prevState) => ({
+      ...prevState,
+      masterVol: newMasterValue,
+    }));
+    const adjustVol = newMasterValue - prevMasterValue;
+    handleVolChange(null, null, adjustVol);
+  };
+
+  const handleVolChange = (deviceName, newValue, adjust = false) => {
+    let newState = [...state.devices];
+    if (!adjust) {
+      const deviceIndex = state.devices.findIndex(
+        (device) => device.name === deviceName
+      );
+
+      newState[deviceIndex] = { ...newState[deviceIndex], vol: newValue };
+    } else {
+      newState.map((x) => (x.selected ? (x.vol = x.vol + adjust) : x));
+    }
+
+    setState((prevState) => ({
+      ...prevState,
+      devices: newState,
+    }));
+  };
 
   return (
     <>
@@ -75,9 +112,9 @@ const VolumeSlider = () => {
           <Grid item ref={ref} xs>
             <Slider
               className={classes.slider}
-              value={value.master}
+              value={masterValue}
               disabled={disabled}
-              onChange={(event, value) => handleChange('master', value)}
+              onChange={(event, value) => handleMasterVol(value)}
               aria-labelledby='volume-slider'
             />
           </Grid>
@@ -97,11 +134,7 @@ const VolumeSlider = () => {
           horizontal: 'center',
         }}
       >
-        <DevicesVolume
-          devices={devices}
-          handleChange={handleChange}
-          getValue={value}
-        />
+        <DevicesVolume devices={devices} handleChange={handleVolChange} />
       </Popover>
     </>
   );
