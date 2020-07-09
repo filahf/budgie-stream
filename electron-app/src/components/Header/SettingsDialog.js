@@ -53,7 +53,6 @@ const SettingsDialog = (props) => {
     ipcRenderer.on('appInfo', (event, arg) => {
       ipcRenderer.removeAllListeners('appInfo');
       const { appVersion, ip } = arg;
-      console.log(arg);
       setAppVersion(appVersion);
       setIp(ip);
     });

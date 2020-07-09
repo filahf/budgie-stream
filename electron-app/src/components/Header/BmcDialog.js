@@ -56,7 +56,6 @@ export default function BmcDialog(props) {
     );
     const data = await response.json();
     setSupporters(data.supporters);
-    console.log(data.supporters);
   };
 
   useEffect(() => {

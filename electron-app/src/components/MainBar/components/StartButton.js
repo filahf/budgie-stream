@@ -39,7 +39,6 @@ export default function CircularIntegration() {
   const [state, setState] = useContext(ClientContext);
   const [loading, setLoading] = useState(false);
   const timer = useRef();
-  console.log(state);
 
   React.useEffect(() => {
     return () => {
