@@ -46,8 +46,8 @@ const VolumeSlider = () => {
   // Only control the volume if any devices are selected
   const disabled = !!!devices.length;
 
-  const prevMasterValue = usePreviousValue(state.masterVol);
   const [masterValue, setMasterValue] = useState(null);
+  const prevMasterValue = usePreviousValue(masterValue);
 
   const [anchorEl, setAnchorEl] = useState(null);
   const ref = createRef();
@@ -69,7 +69,7 @@ const VolumeSlider = () => {
     if (devices.length > 1) {
       setAnchorEl(ref.current);
     }
-    // If we're only controlling one device, make it equal to the master volume
+
     if (devices.length === 1) {
       handleVolChange(devices[0].name, newMasterValue, null);
     } else {
@@ -79,6 +79,7 @@ const VolumeSlider = () => {
   };
 
   const handleVolChange = (deviceName, newValue, adjust = false) => {
+    console.log('handleVol', adjust);
     let newState = [...state.devices];
     if (!adjust) {
       const deviceIndex = state.devices.findIndex(
@@ -87,6 +88,7 @@ const VolumeSlider = () => {
 
       newState[deviceIndex] = { ...newState[deviceIndex], vol: newValue };
     } else {
+      console.log('mul');
       newState.map((x) => (x.selected ? (x.vol = x.vol + adjust) : x));
     }
 
