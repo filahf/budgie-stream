@@ -12,6 +12,7 @@ function createWindow() {
     resizable: false,
     webPreferences: {
       nodeIntegration: true,
+      enableRemoteModule: true,
     },
   });
   // Hide menubar
