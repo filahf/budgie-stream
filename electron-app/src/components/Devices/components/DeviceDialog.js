@@ -59,7 +59,7 @@ const CustomDialogTitle = withStyles(styles)((props) => {
   );
 });
 
-const SimpleDialog = (props) => {
+const DeviceDialog = (props) => {
   const { onClose, open } = props;
 
   const [state, setState] = useContext(ClientContext);
@@ -141,4 +141,4 @@ const SimpleDialog = (props) => {
   );
 };
 
-export default SimpleDialog;
+export default DeviceDialog;
