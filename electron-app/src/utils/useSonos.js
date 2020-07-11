@@ -7,6 +7,7 @@ export const fetch = () => {
 
 export const togglePlay = (devices, startPlaying) => {
   //fixa den här if satsen
+  //startPlaying ? startRecording() : stopRecording()
   if (startPlaying) {
     startRecording();
   } else {
