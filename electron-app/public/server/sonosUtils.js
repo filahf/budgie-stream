@@ -23,6 +23,7 @@ async function fetchDevices() {
 
 ipcMain.on('fetchDevices', async (event, arg) => {
   var devices = await fetchDevices();
+  console.log(devices);
   event.sender.send('devices', devices);
 });
 
