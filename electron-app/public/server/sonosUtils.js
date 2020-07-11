@@ -23,6 +23,7 @@ async function fetchDevices() {
 
 ipcMain.on('fetchDevices', async (event, arg) => {
   var devices = await fetchDevices();
+  console.log(devices);
   event.sender.send('devices', devices);
 });
 
@@ -53,39 +54,22 @@ function togglePlayback(devices, startPlaying) {
       }
     }
   });
-
-  // if (startPlaying) {
-  //   groupsAvail[0]
-  //     .CoordinatorDevice()
-  //     .play({
-  //       uri: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3',
-  //       metadata: metaData,
-  //     })
-  //     .then((success) => {
-  //       console.log('Yeay');
-  //     })
-  //     .catch((err) => {
-  //       console.log('Error occurred %j', err);
-  //     });
-  // } else {
-  //   groupsAvail[0].CoordinatorDevice().stop();
-  // }
 }
 
 ipcMain.on('togglePlayback', (event, arg) => {
   const { devices, startPlaying } = arg;
-  const deviceNames = devices.map((a) => a.name);
-  togglePlayback(deviceNames, startPlaying);
+  togglePlayback(devices, startPlaying);
 });
 
 // Volume control
 
-function setVolume(device, volume) {
-  console.log('Setting volume on ', device, 'at ', volume);
-  groupsAvail[0].CoordinatorDevice().setVolume(volume);
+function setVolume(index, volume) {
+  groupsAvail[index].CoordinatorDevice().setVolume(volume);
 }
 
 ipcMain.on('setVolume', (event, arg) => {
-  console.log('selected devices', arg);
-  setVolume(arg.device, arg.volume);
+  arg.map((device) => {
+    const index = groupsAvail.map((e) => e.Name).indexOf(device.name);
+    setVolume(index, device.vol);
+  });
 });

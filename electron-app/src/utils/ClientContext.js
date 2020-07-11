@@ -1,4 +1,5 @@
 import React, { useState, createContext, useEffect } from 'react';
+import { fetch } from './useSonos';
 const { ipcRenderer } = window.require('electron');
 
 const ClientContext = createContext([{}, () => {}]);
@@ -6,7 +7,7 @@ const ClientContext = createContext([{}, () => {}]);
 const ClientProvider = (props) => {
   const fetchDevices = () => {
     var groups = [];
-    ipcRenderer.send('fetchDevices', null);
+    fetch();
     ipcRenderer.on('devices', (event, arg) => {
       groups = JSON.parse(arg);
       groups.forEach((element) => {
