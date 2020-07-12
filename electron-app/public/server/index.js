@@ -14,6 +14,6 @@
   });
 
   // Init stream server
-  //var server = new NicerCast(audioStream, {});
-  //server.start(5000);
+  var server = new NicerCast(audioStream, {});
+  server.start(5000);
 })();

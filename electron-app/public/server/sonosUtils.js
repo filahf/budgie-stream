@@ -39,8 +39,7 @@ function togglePlayback(devices, startPlaying) {
         group
           .CoordinatorDevice()
           .play({
-            uri:
-              'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3',
+            uri: url,
             metadata: metaData,
           })
           .then((success) => {
