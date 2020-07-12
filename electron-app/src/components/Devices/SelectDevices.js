@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { ClientContext } from '../../utils/ClientContext';
 import Button from '@material-ui/core/Button';
-import Dialog from './components/Dialog';
+import Dialog from './components/DeviceDialog';
 
 const SelectDevices = () => {
   // eslint-disable-next-line

@@ -32,7 +32,7 @@ const DevicesVolume = (props) => {
             className={classes.typo}
             primary={device.name}
             secondary={
-              <React.Fragment>
+              <>
                 <Slider
                   value={devices[index].vol}
                   onChange={(event, value) =>
@@ -40,7 +40,7 @@ const DevicesVolume = (props) => {
                   }
                   className={classes.slider}
                 />
-              </React.Fragment>
+              </>
             }
           />
         </ListItem>
