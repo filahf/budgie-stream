@@ -8,23 +8,23 @@ let groupsAvail = {};
 
 // Fetch devices
 async function fetchDevices() {
-  return discovery
-    .discover()
-    .then((device, model) => {
-      return device.getAllGroups().then((groups) => {
-        groupsAvail = groups;
-        return JSON.stringify(groups, null, 2);
-      });
-    })
-    .catch((e) => {
-      console.warn(' Error in discovery %j', e);
-    });
+	return discovery
+		.discover()
+		.then((device, model) => {
+			return device.getAllGroups().then((groups) => {
+				groupsAvail = groups;
+				return JSON.stringify(groups, null, 2);
+			});
+		})
+		.catch((e) => {
+			console.warn(' Error in discovery %j', e);
+		});
 }
 
 ipcMain.on('fetchDevices', async (event, arg) => {
-  var devices = await fetchDevices();
-  console.log(devices);
-  event.sender.send('devices', devices);
+	var devices = await fetchDevices();
+	console.log(devices);
+	event.sender.send('devices', devices);
 });
 
 //Url
@@ -33,42 +33,42 @@ const metaData = `<DIDL-Lite xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:u
 
 // Toggle Playback
 function togglePlayback(devices, startPlaying) {
-  groupsAvail.map((group) => {
-    if (devices.includes(group.Name)) {
-      if (startPlaying) {
-        group
-          .CoordinatorDevice()
-          .play({
-            uri: url,
-            metadata: metaData,
-          })
-          .then((success) => {
-            console.log('Yeay');
-          })
-          .catch((err) => {
-            console.log('Error occurred %j', err);
-          });
-      } else {
-        group.CoordinatorDevice().stop();
-      }
-    }
-  });
+	groupsAvail.map((group) => {
+		if (devices.includes(group.Name)) {
+			if (startPlaying) {
+				group
+					.CoordinatorDevice()
+					.play({
+						uri: url,
+						metadata: metaData,
+					})
+					.then((success) => {
+						console.log('Yeay');
+					})
+					.catch((err) => {
+						console.log('Error occurred %j', err);
+					});
+			} else {
+				group.CoordinatorDevice().stop();
+			}
+		}
+	});
 }
 
 ipcMain.on('togglePlayback', (event, arg) => {
-  const { devices, startPlaying } = arg;
-  togglePlayback(devices, startPlaying);
+	const { devices, startPlaying } = arg;
+	togglePlayback(devices, startPlaying);
 });
 
 // Volume control
 
 function setVolume(index, volume) {
-  groupsAvail[index].CoordinatorDevice().setVolume(volume);
+	groupsAvail[index].CoordinatorDevice().setVolume(volume);
 }
 
 ipcMain.on('setVolume', (event, arg) => {
-  arg.map((device) => {
-    const index = groupsAvail.map((e) => e.Name).indexOf(device.name);
-    setVolume(index, device.vol);
-  });
+	arg.map((device) => {
+		const index = groupsAvail.map((e) => e.Name).indexOf(device.name);
+		setVolume(index, device.vol);
+	});
 });
