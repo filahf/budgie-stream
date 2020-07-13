@@ -20,7 +20,7 @@
     <img src="images/logo.png" alt="Logo" width="160" height="160">
   </a>
 
-  <h1 align="center">Budgie Stream</h1>
+  <h3 align="center">Budgie Stream</h3>
 
   <p align="center">
     YOUR_SHORT_DESCRIPTION
