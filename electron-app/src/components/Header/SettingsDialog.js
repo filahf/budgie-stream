@@ -6,9 +6,15 @@ import {
 	Dialog,
 	IconButton,
 	List,
+	Divider,
 	ListItem,
 	ListItemText,
+	ListSubheader,
 	TextField,
+	MenuItem,
+	Select,
+	InputLabel,
+	FormControl,
 	Toolbar,
 	Typography,
 } from '@material-ui/core';
@@ -26,6 +32,12 @@ const useStyles = makeStyles((theme) => ({
 	title: {
 		marginLeft: theme.spacing(2),
 		flex: 1,
+	},
+	textField: {
+		width: '20ch',
+	},
+	formControl: {
+		minWidth: '20ch',
 	},
 }));
 
@@ -88,29 +100,37 @@ const SettingsDialog = (props) => {
 					</Button>
 				</Toolbar>
 			</AppBar>
+
 			<List>
+				<ListSubheader>App Info</ListSubheader>
 				<ListItem>
 					<ListItemText primary='Budgie Version' secondary={appVersion} />
 				</ListItem>
 				<ListItem>
 					<ListItemText primary='Local IP' secondary={ip} />
 				</ListItem>
+				<Divider />
+				<ListSubheader>Settings</ListSubheader>
 				<ListItem>
-					<ListItemText
-						primary='Sample Rate in Hz'
-						secondary={
-							<>
-								<TextField
-									type='number'
-									value={sampleRate || 48000}
-									onChange={handleSampleChange}
-									InputLabelProps={{
-										shrink: true,
-									}}
-								/>
-							</>
-						}
+					<TextField
+						label='Sample Rate (hz)'
+						type='number'
+						className={classes.textField}
+						value={sampleRate || 48000}
+						onChange={handleSampleChange}
+						InputLabelProps={{
+							shrink: true,
+						}}
 					/>
+				</ListItem>
+				<ListItem>
+					<FormControl className={classes.formControl}>
+						<InputLabel>Source</InputLabel>
+						<Select>
+							<MenuItem>Source 1</MenuItem>
+							<MenuItem>Source 2</MenuItem>
+						</Select>
+					</FormControl>
 				</ListItem>
 			</List>
 		</Dialog>
