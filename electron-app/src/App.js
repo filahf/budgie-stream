@@ -4,7 +4,7 @@ import { ClientProvider } from './utils/ClientContext';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
-import MainBar from './components/MainBar/MainBar';
+import MainBar from './components/BottomBar/MainBar';
 import Header from './components/Header/Header';
 import SelectDevices from './components/Devices/SelectDevices';
 //import SelectSource from './components/AudioSource/SelectSource';
