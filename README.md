@@ -16,7 +16,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/filahf/repo">
-    <img src="images/logo.png" alt="Logo" width="110" height="110">
+    <img src="images/logo.png" alt="Logo" width="160" height="160">
   </a>
 
   <h3 align="center">Budgie Stream</h3>
