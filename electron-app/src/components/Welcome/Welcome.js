@@ -9,7 +9,7 @@ const useStyles = makeStyles(() => ({
 		flex: '1',
 		marginTop: '0',
 		paddingLeft: '4rem',
-		paddingBottom: '3rem',
+		paddingBottom: '1rem',
 	},
 }));
 
@@ -35,11 +35,11 @@ const Welcome = (props) => {
 						component='h2'
 						gutterBottom
 					>
-						{'Stream What You Hear To Sonos'}
+						{'Stream What You Hear to Sonos'}
 					</Typography>
 				</Grid>
-				<Grid item xs={4}>
-					<BudgieLogo style={{ height: 250, width: 'auto' }} />
+				<Grid item xs={5}>
+					<BudgieLogo />
 				</Grid>
 			</Grid>
 			<Grid container direction='column' justify='center' alignItems='center'>

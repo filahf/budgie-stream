@@ -5,7 +5,7 @@ import LocalCafeOutlinedIcon from '@material-ui/icons/LocalCafeOutlined';
 import SettingsDialog from './SettingsDialog';
 import BmcDialog from './BmcDialog';
 
-const Header = (props) => {
+const Header = () => {
 	const [showSettings, setShowSettings] = useState(false);
 	const [showBmc, setShowBmc] = useState(false);
 
