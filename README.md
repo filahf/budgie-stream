@@ -76,7 +76,7 @@ Here's a blank template to get started:
 
 
 <!-- GETTING STARTED -->
-## Getting Started
+## Dev Environment
 
 To get a local copy up and running follow these simple steps.
 
@@ -95,7 +95,7 @@ yarn install
 cd budgie-stream/
 yarn start
 ```
-#### Common errors
+#### Common Errors
 <details>
   <summary>Node module was built with the wrong version</summary>
   Run electron rebuild
