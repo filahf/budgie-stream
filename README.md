@@ -28,7 +28,7 @@
     <a href="https://github.com/filahf/repo"><strong>Download »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/filahf/repo/issues">Usage</a>
+    <a href="#usage">Usage</a>
     ·
     <a href="https://github.com/filahf/repo/issues">Report Bug</a>
     ·
@@ -45,6 +45,7 @@
   * [Built With](#built-with)
 * [Getting Started](#getting-started)
   * [Installation](#installation)
+  * [Common Errors](#common-errors)
 * [Usage](#usage)
 * [Roadmap](#roadmap)
 * [Contributing](#contributing)
@@ -66,9 +67,9 @@ Here's a blank template to get started:
 
 ### Built With
 
-* [Electron]()
-* [React]()
-* [Express]()
+* Electron
+* React
+* Express
 * [node-sonos]()
 * [nicercast]()
 
@@ -87,8 +88,28 @@ git clone https://github.com/filahf/repo.git
 ```
 2. Install NPM packages
 ```sh
-npm install
+yarn install
 ```
+3. Start
+```sh
+cd budgie-stream/
+yarn start
+```
+#### Common errors
+<details>
+  <summary>Node module was built with the wrong version</summary>
+  Run electron rebuild
+
+```sh
+$(npm bin)/electron-rebuild
+```
+
+Or if you're on Windows:
+
+```sh
+.\node_modules\.bin\electron-rebuild.cmd
+```
+</details>
 
 
 
@@ -131,7 +152,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email
+Filip Åhfelt - filipahfelt.se
 
 Project Link: [https://github.com/filahf/repo](https://github.com/filahf/repo)
 
@@ -148,18 +169,4 @@ Project Link: [https://github.com/filahf/repo](https://github.com/filahf/repo)
 
 [product-screenshot]: images/flowdiagram.png
 
-### Common errors
-<details>
-  <summary>Node module was built with the wrong version</summary>
-  Run electron rebuild
 
-```sh
-$(npm bin)/electron-rebuild
-```
-
-Or if you're on Windows:
-
-```sh
-.\node_modules\.bin\electron-rebuild.cmd
-```
-</details>
