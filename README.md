@@ -24,9 +24,11 @@
   <p align="center">
     YOUR_SHORT_DESCRIPTION
     <br />
-    <a href="https://github.com/filahf/repo"><strong>Usage Guide »</strong></a>
+    <a href="https://github.com/filahf/repo"><strong>Download »</strong></a>
     <br />
     <br />
+    <a href="https://github.com/filahf/repo/issues">Usage</a>
+    ·
     <a href="https://github.com/filahf/repo/issues">Report Bug</a>
     ·
     <a href="https://github.com/filahf/repo/issues">Request Feature</a>
