@@ -1,4 +1,5 @@
 import React, { useState, createContext, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { fetch } from './useSonos';
 const { ipcRenderer } = window.require('electron');
 
@@ -38,6 +39,10 @@ const ClientProvider = (props) => {
 			{props.children}
 		</ClientContext.Provider>
 	);
+};
+
+ClientProvider.propTypes = {
+	children: PropTypes.element,
 };
 
 export { ClientContext, ClientProvider };

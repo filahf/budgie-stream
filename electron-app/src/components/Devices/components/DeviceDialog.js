@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import PropTypes from 'prop-types';
 import { fetch } from '../../../utils/useSonos';
 import { ClientContext } from '../../../utils/ClientContext';
 import { withStyles } from '@material-ui/core/styles';
@@ -139,6 +140,11 @@ const DeviceDialog = (props) => {
 			</DialogContent>
 		</Dialog>
 	);
+};
+
+DeviceDialog.propTypes = {
+	onClose: PropTypes.func.isRequired,
+	open: PropTypes.bool.isRequired,
 };
 
 export default DeviceDialog;

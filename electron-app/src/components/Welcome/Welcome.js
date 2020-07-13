@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import BudgieLogo from '../../assets/budgieLogo';
@@ -46,6 +47,10 @@ const Welcome = (props) => {
 			</Grid>
 		</>
 	);
+};
+
+Welcome.propTypes = {
+	children: PropTypes.element,
 };
 
 export default Welcome;

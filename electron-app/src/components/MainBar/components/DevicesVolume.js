@@ -1,4 +1,5 @@
 import { List, ListItem, ListItemText, Slider } from '@material-ui/core/';
+import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 
@@ -47,6 +48,11 @@ const DevicesVolume = (props) => {
 			))}
 		</List>
 	);
+};
+
+DevicesVolume.propTypes = {
+	devices: PropTypes.arrayOf(PropTypes.object),
+	handleChange: PropTypes.func,
 };
 
 export default DevicesVolume;

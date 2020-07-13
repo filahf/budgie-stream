@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import {
 	Button,
 	Chip,
@@ -123,3 +124,8 @@ export default function BmcDialog(props) {
 		</div>
 	);
 }
+
+BmcDialog.propTypes = {
+	close: PropTypes.func.isRequired,
+	open: PropTypes.bool.isRequired,
+};

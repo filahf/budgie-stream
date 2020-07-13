@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import {
 	AppBar,
 	Button,
@@ -114,6 +115,11 @@ const SettingsDialog = (props) => {
 			</List>
 		</Dialog>
 	);
+};
+
+SettingsDialog.propTypes = {
+	close: PropTypes.func.isRequired,
+	open: PropTypes.bool.isRequired,
 };
 
 export default SettingsDialog;
