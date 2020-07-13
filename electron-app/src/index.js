@@ -8,10 +8,10 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
-  <ThemeProvider theme={theme}>
-    <App />
-  </ThemeProvider>,
-  document.getElementById('root')
+	<ThemeProvider theme={theme}>
+		<App />
+	</ThemeProvider>,
+	document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change

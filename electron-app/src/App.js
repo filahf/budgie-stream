@@ -11,34 +11,34 @@ import SelectDevices from './components/Devices/SelectDevices';
 import Welcome from './components/Welcome/Welcome';
 
 function App() {
-  const classes = useStyles();
-  return (
-    <ClientProvider>
-      <div className={classes.root}>
-        <Header />
-        <Container component='main'>
-          <Welcome>
-            <SelectDevices />
-          </Welcome>
-        </Container>
-        <div className={classes.footer}>
-          <MainBar />
-        </div>
-      </div>
-    </ClientProvider>
-  );
+	const classes = useStyles();
+	return (
+		<ClientProvider>
+			<div className={classes.root}>
+				<Header />
+				<Container component='main'>
+					<Welcome>
+						<SelectDevices />
+					</Welcome>
+				</Container>
+				<div className={classes.footer}>
+					<MainBar />
+				</div>
+			</div>
+		</ClientProvider>
+	);
 }
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    flexDirection: 'column',
-    minHeight: '100vh',
-  },
-  footer: {
-    marginTop: 'auto',
-    bottom: 0,
-  },
+	root: {
+		display: 'flex',
+		flexDirection: 'column',
+		minHeight: '100vh',
+	},
+	footer: {
+		marginTop: 'auto',
+		bottom: 0,
+	},
 }));
 
 export default App;

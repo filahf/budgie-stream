@@ -35,7 +35,9 @@
     "electron-build": "electron-builder",
     "package": "yarn electron-build -c.extraMetadata.main=build/electron.js --publish never",
     "build": "yarn react-build && yarn package",
-    "start": "concurrently \"cross-env BROWSER=none npm run react-start\" \"wait-on http://localhost:3000 && electron . \""
+    "start": "concurrently \"cross-env BROWSER=none npm run react-start\" \"wait-on http://localhost:3000 && electron . \"",
+    "lint": "eslint './src/**/*.{js,jsx}'",
+    "lint:fix": "eslint './src/**/*.{js,jsx}' --fix"
   },
   "eslintConfig": {
     "extends": "react-app",
