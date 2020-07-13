@@ -3,12 +3,11 @@ import { Badge, Tooltip } from '@material-ui/core';
 import SpeakerIcon from '@material-ui/icons/Speaker';
 import { ClientContext } from '../../../utils/ClientContext';
 
-const VolumeSlider = () => {
-	// eslint-disable-next-line
-  const [state, setState] = useContext(ClientContext);
+const DevicesBadge = () => {
+	const [state] = useContext(ClientContext);
 	const [nbrDevices, setNbrDevices] = useState('0');
 	// eslint-disable-next-line
-  const getNbrOfDevices = () => {
+	const getNbrOfDevices = () => {
 		const count = state.devices.filter((device) => device.selected === true)
 			.length;
 		setNbrDevices(count);
@@ -20,7 +19,7 @@ const VolumeSlider = () => {
 
 	return (
 		<>
-			<Tooltip title='Devices Streaming' aria-label='Devices'>
+			<Tooltip title='Devices/Groups Selected' aria-label='Devices'>
 				<Badge color='secondary' badgeContent={nbrDevices}>
 					<SpeakerIcon />
 				</Badge>
@@ -29,4 +28,4 @@ const VolumeSlider = () => {
 	);
 };
 
-export default VolumeSlider;
+export default DevicesBadge;

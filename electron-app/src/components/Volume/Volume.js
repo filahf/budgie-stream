@@ -6,8 +6,8 @@ import React, {
 	useRef,
 } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { ClientContext } from '../../../utils/ClientContext';
-import { setVolume } from '../../../utils/useSonos';
+import { ClientContext } from '../../utils/ClientContext';
+import { setVolume } from '../../utils/useSonos';
 import { Grid, Slider, Popover } from '@material-ui/core';
 import VolumeUp from '@material-ui/icons/VolumeUp';
 

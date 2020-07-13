@@ -1,10 +1,10 @@
 import { AppBar, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import React from 'react';
-import Devices from './components/Devices';
+import Devices from './components/DevicesBadge';
 //components
 import StartButton from './components/StartButton';
-import VolumeSlider from './components/Volume';
+import VolumeSlider from '../Volume/Volume';
 
 const useStyles = makeStyles(() => ({
 	barItems: { padding: '1.3rem' },

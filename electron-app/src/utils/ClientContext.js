@@ -26,7 +26,10 @@ const ClientProvider = (props) => {
 	};
 
 	const [state, setState] = useState({
-		devices: [],
+		devices: [
+			{ name: 'Device1', selected: false, vol: 30 },
+			{ name: 'Device2', selected: false, vol: 30 },
+		],
 		playing: false,
 	});
 
