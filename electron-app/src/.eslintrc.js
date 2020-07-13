@@ -9,7 +9,7 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: 'module',
   },
-  extends: ['plugin:react/recommended', 'plugin:prettier/recommended'],
+  extends: ["react-app",'plugin:react/recommended', 'plugin:prettier/recommended'],
   plugins: [],
   // add your custom rules here
   rules: {

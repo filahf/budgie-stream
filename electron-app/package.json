@@ -66,6 +66,11 @@
     "electron": "^9.0.0",
     "electron-builder": "^22.7.0",
     "electron-rebuild": "^1.11.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-loader": "^4.0.2",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.20.3",
+    "prettier": "^2.0.5",
     "wait-on": "^5.0.0"
   },
   "build": {
