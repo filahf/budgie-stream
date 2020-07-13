@@ -20,7 +20,7 @@
     <img src="images/logo.png" alt="Logo" width="160" height="160">
   </a>
 
-  <h3 align="center">Budgie Stream</h3>
+  <h1 align="center">Budgie Stream</h1>
 
   <p align="center">
     YOUR_SHORT_DESCRIPTION
@@ -44,7 +44,6 @@
 * [About the Project](#about-the-project)
   * [Built With](#built-with)
 * [Getting Started](#getting-started)
-  * [Prerequisites](#prerequisites)
   * [Installation](#installation)
 * [Usage](#usage)
 * [Roadmap](#roadmap)
@@ -79,14 +78,6 @@ Here's a blank template to get started:
 ## Getting Started
 
 To get a local copy up and running follow these simple steps.
-
-### Prerequisites
-
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-```sh
-npm install npm@latest -g
-```
 
 ### Installation
  
