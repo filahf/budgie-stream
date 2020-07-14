@@ -1,9 +1,13 @@
 {
   "name": "budgie-stream",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "homepage": "./",
   "main": "public/electron.js",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/filahf/budgie-stream"
+  },
   "dependencies": {
     "@material-ui/core": "^4.10.2",
     "@material-ui/icons": "^4.9.1",
