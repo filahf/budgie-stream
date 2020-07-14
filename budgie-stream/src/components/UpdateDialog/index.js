@@ -4,7 +4,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 
 const UpdateDialog = () => {
 	const [open, setOpen] = useState(false);
-	const [readyForUpdate, setReadyForUpdate] = useState(false);
+	const [readyForUpdate, ] = useState(false);
 
 	const handleClose = () => {
 		setOpen(false);
