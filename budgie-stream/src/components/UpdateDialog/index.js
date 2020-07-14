@@ -26,7 +26,6 @@ const UpdateDialog = () => {
 			<Snackbar
 				anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
 				open={open}
-				autoHideDuration={10000}
 				onClose={handleClose}
 				message={readyForUpdate ? restartMsg : downloadMsg}
 				action={
