@@ -48,14 +48,12 @@
 ## Table of Contents
 
 * [About the Project](#about-the-project)
-  * [Screenshot](#screenshot)
   * [Technology](#Technology)
   * [Built With](#built-with)
 * [Dev Environment](#dev-environment)
   * [Installation](#installation)
   * [Common Errors](#common-errors)
 * [Usage](#usage)
-* [Roadmap](#roadmap)
 * [Contributing](#contributing)
 * [License](#license)
 * [Support](#support)
@@ -66,7 +64,6 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-### Screenshot
 <p align="center">
 <img src="images/screenshot.jpg" alt="screenshot" height="400">
 </p>
@@ -133,17 +130,9 @@ Usage guide TBD
 
 
 
-<!-- ROADMAP -->
-## Roadmap
-
-See the [open issues](https://github.com/filahf/budgie-stream/issues) for a list of proposed features (and known issues).
-
-
-
 <!-- CONTRIBUTING -->
 ## Contributing
-
-Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+Any contributions you make are **greatly appreciated**.
 
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
@@ -163,8 +152,9 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 <!-- CONTACT -->
 ## Contact
+Feel free to contact me if you have any questions.
 
-Filip Åhfelt - filipahfelt.se
+Filip Åhfelt - [filipahfelt.se](https://filipahfelt.se/)
 
 Project Link: [https://github.com/filahf/budgie-stream](https://github.com/filahf/budgie-stream)
 
