@@ -34,7 +34,13 @@
     ·
     <a href="https://github.com/filahf/budgie-stream/issues">Request Feature</a>
   </p>
+  <p align="center">
+  <img src="https://img.shields.io/github/v/release/filahf/budgie-stream?style=flat-square" />
+  <img src="https://img.shields.io/github/downloads/filahf/budgie-stream/latest/total?style=flat-square" />
+  <img alt="GitHub" src="https://img.shields.io/github/license/filahf/budgie-stream?style=flat-square">
+  </p>
 </p>
+
 
 
 
