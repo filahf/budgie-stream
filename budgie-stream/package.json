@@ -1,12 +1,14 @@
 {
   "name": "budgie-stream",
+  "description": "Stream system output to your Sonos devices",
   "version": "1.0.0",
+  "author": "Filip Åhfelt",
   "private": true,
   "homepage": "./",
   "main": "public/electron.js",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/filahf/budgie-stream"
+    "type": "git",
+    "url": "https://github.com/filahf/budgie-stream"
   },
   "dependencies": {
     "@material-ui/core": "^4.10.2",
@@ -59,14 +61,5 @@
     "eslint-plugin-react": "^7.20.3",
     "prettier": "^2.0.5",
     "wait-on": "^5.0.0"
-  },
-  "build": {
-    "files": [
-      "build/**/*",
-      "node_modules/**/*"
-    ],
-    "win": {
-      "icon": "build/icon.png"
-    }
   }
 }
