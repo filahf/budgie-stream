@@ -64,9 +64,6 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-<p align="center">
-<img src="images/screenshot.jpg" alt="screenshot" height="400">
-</p>
 
 ### Technology
 <p align="center">
@@ -124,6 +121,11 @@ Or if you're on Windows:
 
 <!-- USAGE EXAMPLES -->
 ## Usage
+
+
+<p align="center">
+<img src="images/screenshot.jpg" alt="screenshot" height="400">
+</p>
 
 
 Usage guide TBD
