@@ -2,22 +2,15 @@ import { startRecording, stopRecording } from './recorder';
 const { ipcRenderer } = window.require('electron');
 
 export const fetch = () => {
-	ipcRenderer.send('fetchDevices', null);
+  ipcRenderer.send('fetchDevices', null);
 };
 
 export const togglePlay = (devices, startPlaying) => {
-	//fixa den här if satsen
-	//startPlaying ? startRecording() : stopRecording()
-	if (startPlaying) {
-		startRecording();
-	} else {
-		stopRecording();
-	}
-	devices = devices.map((a) => a.name);
-	ipcRenderer.send('togglePlayback', { devices, startPlaying });
+  startPlaying ? startRecording() : stopRecording();
+  devices = devices.map((a) => a.name);
+  ipcRenderer.send('togglePlayback', { devices, startPlaying });
 };
 
 export const setVolume = (devices) => {
-	console.log(devices, 'vol');
-	ipcRenderer.send('setVolume', devices);
+  ipcRenderer.send('setVolume', devices);
 };
