@@ -15,7 +15,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function StartButton() {
 	const classes = useStyles();
-	const [state, setState] = useContext(ClientContext);
+	const { playback } = useContext(ClientContext);
+	const [state, setState] = playback;
 
 	const devices = state.devices.filter((device) => device.selected === true);
 	const disabled = !!!devices.length;

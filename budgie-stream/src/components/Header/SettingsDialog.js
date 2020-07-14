@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import {
 	AppBar,
@@ -23,8 +23,7 @@ import Slide from '@material-ui/core/Slide';
 import { makeStyles } from '@material-ui/core/styles';
 import CloseIcon from '@material-ui/icons/Close';
 import Store from '../../utils/userConfig';
-
-const { ipcRenderer } = window.require('electron');
+import { ClientContext } from '../../utils/ClientContext';
 
 const useStyles = makeStyles((theme) => ({
 	appBar: {
@@ -47,11 +46,12 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 const SettingsDialog = (props) => {
-	const { close } = props;
-	const classes = useStyles();
-	const [ip, setIp] = useState('');
-	const [appVersion, setAppVersion] = useState(null);
+	const { app } = useContext(ClientContext);
+	const [appInfo] = app;
 	const [sampleRate, setSampleRate] = useState(Store.get('samplerate'));
+	const { close } = props;
+
+	const classes = useStyles();
 
 	const handleSampleChange = (e) => {
 		setSampleRate(e.target.value);
@@ -61,20 +61,6 @@ const SettingsDialog = (props) => {
 		Store.set('samplerate', sampleRate);
 		close();
 	};
-
-	const fetchInfo = () => {
-		ipcRenderer.send('appInfo', null);
-		ipcRenderer.on('appInfo', (event, arg) => {
-			ipcRenderer.removeAllListeners('appInfo');
-			const { appVersion, ip } = arg;
-			setAppVersion(appVersion);
-			setIp(ip);
-		});
-	};
-
-	useEffect(() => {
-		fetchInfo();
-	}, []);
 
 	return (
 		<Dialog
@@ -105,10 +91,13 @@ const SettingsDialog = (props) => {
 			<List>
 				<ListSubheader>App Info</ListSubheader>
 				<ListItem>
-					<ListItemText primary='Budgie Version' secondary={appVersion} />
+					<ListItemText
+						primary='Budgie Version'
+						secondary={appInfo.appVersion}
+					/>
 				</ListItem>
 				<ListItem>
-					<ListItemText primary='Local IP' secondary={ip} />
+					<ListItemText primary='Local IP' secondary={appInfo.ip} />
 				</ListItem>
 				<Divider />
 				<ListSubheader>Settings</ListSubheader>

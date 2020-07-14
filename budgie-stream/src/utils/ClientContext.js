@@ -6,6 +6,26 @@ const { ipcRenderer } = window.require('electron');
 const ClientContext = createContext([{}, () => {}]);
 
 const ClientProvider = (props) => {
+	const [state, setState] = useState({
+		devices: [
+			{ name: 'Device1', selected: false, vol: 30 },
+			{ name: 'Device2', selected: false, vol: 30 },
+		],
+		playing: false,
+	});
+
+	const [appInfo, setAppInfo] = useState({});
+
+	const fetchAppInfo = () => {
+		ipcRenderer.send('appInfo', null);
+
+		ipcRenderer.on('appInfo', (event, arg) => {
+			ipcRenderer.removeAllListeners('appInfo');
+			console.log(arg);
+			setAppInfo(arg);
+		});
+	};
+
 	const fetchDevices = () => {
 		var groups = [];
 		fetch();
@@ -25,20 +45,15 @@ const ClientProvider = (props) => {
 		});
 	};
 
-	const [state, setState] = useState({
-		devices: [
-			{ name: 'Device1', selected: false, vol: 30 },
-			{ name: 'Device2', selected: false, vol: 30 },
-		],
-		playing: false,
-	});
-
 	useEffect(() => {
+		fetchAppInfo();
 		fetchDevices();
 	}, []);
 
 	return (
-		<ClientContext.Provider value={[state, setState]}>
+		<ClientContext.Provider
+			value={{ playback: [state, setState], app: [appInfo, setAppInfo] }}
+		>
 			{props.children}
 		</ClientContext.Provider>
 	);

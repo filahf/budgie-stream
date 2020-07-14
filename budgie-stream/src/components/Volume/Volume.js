@@ -41,7 +41,8 @@ const usePreviousValue = (value) => {
 const VolumeSlider = () => {
 	const classes = useStyles();
 
-	const [state, setState] = useContext(ClientContext);
+	const { playback } = useContext(ClientContext);
+	const [state, setState] = playback;
 	const devices = state.devices.filter((device) => device.selected === true);
 	// Only control the volume if any devices are selected
 	const disabled = !state.playing;

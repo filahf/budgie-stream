@@ -16,8 +16,8 @@ const useStyles = makeStyles((theme) => ({
 
 const SelectSource = () => {
 	const classes = useStyles();
-	// eslint-disable-next-line
-  const [state, setState] = useContext(ClientContext);
+	const { playback } = useContext(ClientContext);
+	const [state, setState] = playback;
 	const [source, setSource] = useState(0);
 
 	const handleChange = (event) => {

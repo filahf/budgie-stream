@@ -63,7 +63,8 @@ const CustomDialogTitle = withStyles(styles)((props) => {
 const DeviceDialog = (props) => {
 	const { onClose, open } = props;
 
-	const [state, setState] = useContext(ClientContext);
+	const { playback } = useContext(ClientContext);
+	const [state, setState] = playback;
 	const [selected, setSelected] = useState(null);
 	const loading = state.devices.length === 0;
 
