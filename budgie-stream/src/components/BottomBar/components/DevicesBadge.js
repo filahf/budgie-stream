@@ -4,7 +4,8 @@ import SpeakerIcon from '@material-ui/icons/Speaker';
 import { ClientContext } from '../../../utils/ClientContext';
 
 const DevicesBadge = () => {
-	const [state] = useContext(ClientContext);
+	const { playback } = useContext(ClientContext);
+	const [state] = playback;
 	const [nbrDevices, setNbrDevices] = useState('0');
 	// eslint-disable-next-line
 	const getNbrOfDevices = () => {

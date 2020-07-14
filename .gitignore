@@ -1,3 +1,6 @@
 /test-server
+/budgie-stream/build
+/budgie-stream/dist
 node_modules
 .eslintcache
+electron-builder.yml

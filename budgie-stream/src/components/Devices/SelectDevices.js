@@ -4,8 +4,8 @@ import Button from '@material-ui/core/Button';
 import Dialog from './components/DeviceDialog';
 
 const SelectDevices = () => {
-	// eslint-disable-next-line
-  const [state, setState] = useContext(ClientContext);
+	const { playback } = useContext(ClientContext);
+	const [state] = playback;
 	const [open, setOpen] = useState(false);
 	return (
 		<div>
