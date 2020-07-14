@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 
 const UpdateDialog = () => {
-	const [open, setOpen] = useState(true);
+	const [open, setOpen] = useState(false);
 	const [readyForUpdate, setReadyForUpdate] = useState(false);
 
 	const handleClose = () => {
