@@ -16,7 +16,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/filahf/repo">
+  <a href="https://github.com/filahf/budgie-stream">
     <img src="images/logo.png" alt="Logo" width="160" height="160">
   </a>
 
@@ -25,14 +25,14 @@
   <p align="center">
     Stream system output to your Sonos devices
     <br />
-    <a href="https://github.com/filahf/repo"><strong>Download »</strong></a>
+    <a href="https://github.com/filahf/budgie-stream/releases"><strong>Download »</strong></a>
     <br />
     <br />
     <a href="#usage">Usage</a>
     ·
-    <a href="https://github.com/filahf/repo/issues">Report Bug</a>
+    <a href="https://github.com/filahf/budgie-stream/issues">Report Bug</a>
     ·
-    <a href="https://github.com/filahf/repo/issues">Request Feature</a>
+    <a href="https://github.com/filahf/budgie-stream/issues">Request Feature</a>
   </p>
 </p>
 
@@ -51,7 +51,6 @@
 * [Contributing](#contributing)
 * [License](#license)
 * [Contact](#contact)
-* [Acknowledgements](#acknowledgements)
 
 
 
@@ -81,7 +80,7 @@ To get a local copy up and running follow these simple steps.
  
 1. Clone the repo
 ```sh
-git clone https://github.com/filahf/repo.git
+git clone https://github.com/filahf/budgie-stream.git
 ```
 2. Install NPM packages
 ```sh
@@ -113,16 +112,14 @@ Or if you're on Windows:
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
+Usage guide TBD
 
 
 
 <!-- ROADMAP -->
 ## Roadmap
 
-See the [open issues](https://github.com/filahf/repo/issues) for a list of proposed features (and known issues).
+See the [open issues](https://github.com/filahf/budgie-stream/issues) for a list of proposed features (and known issues).
 
 
 
@@ -151,16 +148,8 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 Filip Åhfelt - filipahfelt.se
 
-Project Link: [https://github.com/filahf/repo](https://github.com/filahf/repo)
+Project Link: [https://github.com/filahf/budgie-stream](https://github.com/filahf/budgie-stream)
 
-
-
-<!-- ACKNOWLEDGEMENTS -->
-## Acknowledgements
-
-* [@stephencwan - Hacking airplay into sonos](https://medium.com/@stephencwan/hacking-airplay-into-sonos-93a41a1fcfbb)
-* []()
-* []()
 
 
 
