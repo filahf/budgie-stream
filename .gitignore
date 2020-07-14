@@ -1,3 +1,4 @@
 /test-server
 node_modules
 .eslintcache
+electron-builder.yml
