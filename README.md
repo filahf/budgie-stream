@@ -48,6 +48,8 @@
 ## Table of Contents
 
 * [About the Project](#about-the-project)
+  * [Screenshot](#screenshot)
+  * [Technology](#Technology)
   * [Built With](#built-with)
 * [Dev Environment](#dev-environment)
   * [Installation](#installation)
@@ -56,6 +58,7 @@
 * [Roadmap](#roadmap)
 * [Contributing](#contributing)
 * [License](#license)
+* [Donate](#donate)
 * [Contact](#contact)
 
 
@@ -63,11 +66,18 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+### Screenshot
+<p align="center">
+<img src="images/screenshot.jpg" alt="screenshot" height="400">
+</p>
 
+### Technology
+<p align="center">
+<img src="images/flowdiagram.png" alt="screenshot" height="300">
+</p>
 The project is built using Electron/React/Express. The image above show the simplified flow of audio data, from capture to playback on your Sonos device.
 
-### Built With
+#### Built With
 
 * Electron
 * React
@@ -117,6 +127,7 @@ Or if you're on Windows:
 
 <!-- USAGE EXAMPLES -->
 ## Usage
+
 
 Usage guide TBD
 
