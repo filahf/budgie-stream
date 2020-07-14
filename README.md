@@ -23,7 +23,7 @@
   <h3 align="center">Budgie Stream</h3>
 
   <p align="center">
-    YOUR_SHORT_DESCRIPTION
+    Stream system output to your Sonos devices
     <br />
     <a href="https://github.com/filahf/repo"><strong>Download »</strong></a>
     <br />
@@ -60,10 +60,7 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-Here's a blank template to get started:
-**To avoid retyping too much info. Do a search and replace with your text editor for the following:**
-`filahf`, `repo`, `twitter_handle`, `email`
-
+The project is built using Electron/React/Express. The image above show the simplified flow of audio data, from capture to playback on your Sonos device.
 
 ### Built With
 
@@ -161,7 +158,7 @@ Project Link: [https://github.com/filahf/repo](https://github.com/filahf/repo)
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
 
-* []()
+* [@stephencwan - Hacking airplay into sonos](https://medium.com/@stephencwan/hacking-airplay-into-sonos-93a41a1fcfbb)
 * []()
 * []()
 
