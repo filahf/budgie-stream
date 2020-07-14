@@ -17,6 +17,7 @@ import {
 	FormControl,
 	Toolbar,
 	Typography,
+	Tooltip,
 } from '@material-ui/core';
 import Slide from '@material-ui/core/Slide';
 import { makeStyles } from '@material-ui/core/styles';
@@ -126,10 +127,12 @@ const SettingsDialog = (props) => {
 				<ListItem>
 					<FormControl className={classes.formControl}>
 						<InputLabel>Source</InputLabel>
-						<Select disabled>
-							<MenuItem>Source 1</MenuItem>
-							<MenuItem>Source 2</MenuItem>
-						</Select>
+						<Tooltip title='Source selection is under development'>
+							<Select disabled>
+								<MenuItem>Source 1</MenuItem>
+								<MenuItem>Source 2</MenuItem>
+							</Select>
+						</Tooltip>
 					</FormControl>
 				</ListItem>
 			</List>
