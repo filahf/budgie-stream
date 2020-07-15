@@ -70,11 +70,11 @@ ipcMain.on('restart_app', () => {
 });
 
 autoUpdater.on('update-available', () => {
-  mainWindow.webContents.send('update_available');
+  win.webContents.send('update_available');
 });
 
 autoUpdater.on('update-downloaded', () => {
-  mainWindow.webContents.send('update_downloaded');
+  win.webContents.send('update_downloaded');
 });
 
 // In this file you can include the rest of your app's specific main process
