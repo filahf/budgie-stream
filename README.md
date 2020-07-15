@@ -67,6 +67,7 @@
 ### TODO
 - [ ] Implement auto update
 - [ ] Improve Documentation 
+- [ ] Improve group volume control
 - [ ] Source selection
 - [ ] Reduce latency
 - [ ] Linux/Mac client
