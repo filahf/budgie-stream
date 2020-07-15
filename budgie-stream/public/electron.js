@@ -1,4 +1,5 @@
 const { app, BrowserWindow } = require('electron');
+const { autoUpdater } = require('electron-updater');
 const path = require('path');
 const isDev = require('electron-is-dev');
 const { ipcMain } = require('electron');
@@ -29,6 +30,10 @@ function createWindow() {
   if (isDev) {
     win.webContents.openDevTools();
   }
+
+  win.once('ready-to-show', () => {
+    autoUpdater.checkForUpdatesAndNotify();
+  });
 }
 
 // This method will be called when Electron has finished
@@ -58,6 +63,18 @@ ipcMain.on('appInfo', (event) => {
     ip: ip.address(),
     appVersion: app.getVersion(),
   });
+});
+
+ipcMain.on('restart_app', () => {
+  autoUpdater.quitAndInstall();
+});
+
+autoUpdater.on('update-available', () => {
+  mainWindow.webContents.send('update_available');
+});
+
+autoUpdater.on('update-downloaded', () => {
+  mainWindow.webContents.send('update_downloaded');
 });
 
 // In this file you can include the rest of your app's specific main process

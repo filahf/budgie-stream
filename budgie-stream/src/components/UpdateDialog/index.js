@@ -1,13 +1,21 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
+import { ClientContext } from '../../utils/ClientContext';
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
+const { ipcRenderer } = window.require('electron');
 
 const UpdateDialog = () => {
-	const [open, setOpen] = useState(false);
-	const [readyForUpdate] = useState(false);
+	const { updateStatus } = useContext(ClientContext);
+	const [update, setUpdate] = updateStatus;
 
-	const handleClose = () => {
-		setOpen(false);
+	const handleClose = (e) => {
+		e.preventDefault();
+		setUpdate((prevState) => ({ ...prevState, updateDialog: false }));
+	};
+
+	const handleRestart = (e) => {
+		e.preventDefault();
+		ipcRenderer.send('restart_app');
 	};
 
 	const downloadMsg = (
@@ -25,14 +33,14 @@ const UpdateDialog = () => {
 		<div>
 			<Snackbar
 				anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-				open={open}
+				open={update.updateDialog}
 				onClose={handleClose}
-				message={readyForUpdate ? restartMsg : downloadMsg}
+				message={update.rdyForUpdate ? restartMsg : downloadMsg}
 				action={
 					<>
-						{readyForUpdate ? (
+						{update.rdyForUpdate ? (
 							<>
-								<Button color='secondary' size='small' onClick={handleClose}>
+								<Button color='secondary' size='small' onClick={handleRestart}>
 									Yes
 								</Button>{' '}
 								<Button color='secondary' size='small' onClick={handleClose}>
