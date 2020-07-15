@@ -69,15 +69,28 @@
 <p align="center">
 <img src="images/flowdiagram.png" alt="screenshot" height="300">
 </p>
-The project is built using Electron/React/Express. The image above show the simplified flow of audio data, from capture to playback on your Sonos device.
+The project is built using Electron/React/Express. The image above shows the simplified flow of audio data, from capture to playback on your Sonos device.
 
+#### Capture
+The project utilizes electrons [desktopCapturer](https://www.electronjs.org/docs/api/desktop-capturer) to capture raw audio. The stream of raw audio is in the form of 32 bit float.
+#### Conversion
+The server expects a stream of 16 bit signed integer. Hence the conversion before sending the stream to the server. 
+
+The stream is sent to the backend by IPC. Early versions of the software sent the stream via socket.io but the use of another package seemed redundant. I noticed no performance changes going from sockets to IPC.
+
+#### Encode
+The stream of 16 bit signed integers is encoded to mp3 with LAME. I had issues with the sample rate being inconsistent on different computers leading to a high/low pitched final result. To solve this I implemented an option to change the sample rate in the client.
+
+#### Broadcast
+The stream is now in the format of mp3 and ready for broadcast. The stream is linked to an endpoint served by express, the url of the endpoint is then sent by [node-sonos](https://github.com/bencevans/node-sonos) to selected devices.
 #### Built With
 
 * Electron
 * React
 * Express
-* [node-sonos]()
-* [nicercast]()
+* Material UI
+* [node-sonos](https://github.com/bencevans/node-sonos)
+* [nicercast](https://github.com/stephen/nicercast)
 
 
 
@@ -128,7 +141,10 @@ Or if you're on Windows:
 </p>
 
 
-Usage guide TBD
+1. Download system corresponding package
+2. Install
+3. Make sure to allow Budgie Stream through the firewall
+4. Select devices and hit play!
 
 
 
