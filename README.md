@@ -63,7 +63,12 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-
+### TODO
+- [ ] Implement auto update
+- [ ] Improve Documentation 
+- [ ] Source selection
+- [ ] Reduce latency
+- [ ] Linux/Mac client
 
 ### Technology
 <p align="center">
