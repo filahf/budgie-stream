@@ -68,6 +68,7 @@ const ClientProvider = (props) => {
 				app: [appInfo, setAppInfo],
 				updateStatus: [update, setUpdate],
 			}}
+
 		>
 			{props.children}
 		</ClientContext.Provider>
