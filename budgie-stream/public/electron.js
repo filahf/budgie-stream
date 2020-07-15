@@ -1,5 +1,5 @@
 const { app, BrowserWindow } = require('electron');
-const { autoUpdater } = require('electron-updater');
+//const { autoUpdater } = require('electron-updater');
 const path = require('path');
 const isDev = require('electron-is-dev');
 const { ipcMain } = require('electron');
@@ -69,13 +69,13 @@ ipcMain.on('restart_app', () => {
   autoUpdater.quitAndInstall();
 });
 
-autoUpdater.on('update-available', () => {
+/* autoUpdater.on('update-available', () => {
   win.webContents.send('update_available');
 });
 
 autoUpdater.on('update-downloaded', () => {
   win.webContents.send('update_downloaded');
-});
+}); */
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
