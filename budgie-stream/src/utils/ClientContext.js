@@ -12,9 +12,20 @@ const ClientProvider = (props) => {
 	});
 
 	const [appInfo, setAppInfo] = useState({});
+
 	const [update, setUpdate] = useState({
-		updateDialog: true,
-		rdyForUpdate: true,
+		updateDialog: false,
+		rdyForUpdate: false,
+	});
+
+	ipcRenderer.on('update_available', () => {
+		ipcRenderer.removeAllListeners('update_available');
+		setUpdate((prevState) => ({ ...prevState, updateDialog: true }));
+	});
+
+	ipcRenderer.on('update_downloaded', () => {
+		ipcRenderer.removeAllListeners('update_downloaded');
+		setUpdate((prevState) => ({ ...prevState, rdyForUpdate: true }));
 	});
 
 	const fetchAppInfo = () => {
