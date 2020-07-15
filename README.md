@@ -36,6 +36,7 @@
   </p>
   <p align="center">
   <img src="https://img.shields.io/github/v/release/filahf/budgie-stream?style=flat-square" />
+  <img alt="GitHub All Releases" src="https://img.shields.io/github/downloads/filahf/budgie-stream/total?style=flat-square">
   <img alt="GitHub issues" src="https://img.shields.io/github/issues/filahf/budgie-stream?style=flat-square">
   <img alt="GitHub" src="https://img.shields.io/github/license/filahf/budgie-stream?style=flat-square">
   </p>
