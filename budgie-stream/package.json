@@ -1,7 +1,7 @@
 {
   "name": "budgie-stream",
   "description": "Stream system output to your Sonos devices",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "author": "Filip Åhfelt",
   "private": true,
   "homepage": "./",
