@@ -115,11 +115,11 @@ git clone https://github.com/filahf/budgie-stream.git
 ```
 2. Install NPM packages
 ```sh
+cd budgie-stream/
 yarn install
 ```
 3. Start
 ```sh
-cd budgie-stream/
 yarn start
 ```
 #### Common Errors
