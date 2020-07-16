@@ -67,7 +67,7 @@
 ## About The Project
 ### TODO
 - [ ] Implement auto update
-- [ ] Improve Documentation 
+- [ ] Improve documentation 
 - [ ] Improve group volume control
 - [ ] Source selection
 - [ ] Reduce latency
