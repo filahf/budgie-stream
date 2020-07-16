@@ -6,19 +6,19 @@ const { ipcRenderer } = window.require('electron');
 const ClientContext = createContext([{}, () => {}]);
 
 const ClientProvider = (props) => {
-  const [state, setState] = useState({
-    devices: [],
-    playing: false,
-  });
+	const [state, setState] = useState({
+		devices: [],
+		playing: false,
+	});
 
-  const [appInfo, setAppInfo] = useState({});
+	const [appInfo, setAppInfo] = useState({});
 
-  const [update, setUpdate] = useState({
-    updateDialog: false,
-    rdyForUpdate: false,
-  });
+	const [update, setUpdate] = useState({
+		updateDialog: false,
+		rdyForUpdate: false,
+	});
 
-  /*   ipcRenderer.on('update_available', () => {
+	/*   ipcRenderer.on('update_available', () => {
     ipcRenderer.removeAllListeners('update_available');
     setUpdate((prevState) => ({ ...prevState, updateDialog: true }));
   });
@@ -28,54 +28,54 @@ const ClientProvider = (props) => {
     setUpdate((prevState) => ({ ...prevState, rdyForUpdate: true }));
   }); */
 
-  const fetchAppInfo = () => {
-    ipcRenderer.send('appInfo', null);
+	const fetchAppInfo = () => {
+		ipcRenderer.send('appInfo', null);
 
-    ipcRenderer.on('appInfo', (event, arg) => {
-      ipcRenderer.removeAllListeners('appInfo');
-      setAppInfo(arg);
-    });
-  };
+		ipcRenderer.on('appInfo', (event, arg) => {
+			ipcRenderer.removeAllListeners('appInfo');
+			setAppInfo(arg);
+		});
+	};
 
-  const fetchDevices = () => {
-    var groups = [];
-    fetch();
-    ipcRenderer.on('devices', (event, arg) => {
-      groups = JSON.parse(arg);
-      groups.forEach((element) => {
-        if (element.Name !== 'BRIDGE') {
-          setState((prevState) => ({
-            ...prevState,
-            devices: [
-              ...prevState.devices,
-              { name: element.Name, selected: false, vol: 30 },
-            ],
-          }));
-        }
-      });
-    });
-  };
+	const fetchDevices = () => {
+		var groups = [];
+		fetch();
+		ipcRenderer.on('devices', (event, arg) => {
+			groups = JSON.parse(arg);
+			groups.forEach((element) => {
+				if (element.Name !== 'BRIDGE') {
+					setState((prevState) => ({
+						...prevState,
+						devices: [
+							...prevState.devices,
+							{ name: element.Name, selected: false, vol: 30 },
+						],
+					}));
+				}
+			});
+		});
+	};
 
-  useEffect(() => {
-    fetchAppInfo();
-    fetchDevices();
-  }, []);
+	useEffect(() => {
+		fetchAppInfo();
+		fetchDevices();
+	}, []);
 
-  return (
-    <ClientContext.Provider
-      value={{
-        playback: [state, setState],
-        app: [appInfo, setAppInfo],
-        updateStatus: [update, setUpdate],
-      }}
-    >
-      {props.children}
-    </ClientContext.Provider>
-  );
+	return (
+		<ClientContext.Provider
+			value={{
+				playback: [state, setState],
+				app: [appInfo, setAppInfo],
+				updateStatus: [update, setUpdate],
+			}}
+		>
+			{props.children}
+		</ClientContext.Provider>
+	);
 };
 
 ClientProvider.propTypes = {
-  children: PropTypes.element,
+	children: PropTypes.element,
 };
 
 export { ClientContext, ClientProvider };
