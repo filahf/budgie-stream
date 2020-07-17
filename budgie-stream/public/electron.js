@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, Menu, Tray } = require('electron');
 //const { autoUpdater } = require('electron-updater');
 const path = require('path');
 const isDev = require('electron-is-dev');
@@ -33,6 +33,42 @@ function createWindow() {
 
   win.once('ready-to-show', () => {
     autoUpdater.checkForUpdatesAndNotify();
+  });
+
+  win.on('minimize', (e) => {
+    e.preventDefault();
+    win.hide();
+  });
+
+  win.on('close', (e) => {
+    if(!app.isQuiting){
+      e.preventDefault();
+      win.hide();
+    }
+
+    return false;
+  });
+
+  var contextMenu = Menu.buildFromTemplate([
+    {
+      label: 'Open',
+      click: function() {
+        win.show();
+    }},
+    {
+      label: 'Quit',
+      click: function() {
+        app.isQuiting = true;
+        app.quit();
+    }}
+  ]);
+
+  var tray = new Tray(path.join(__dirname, 'icon.png'));
+  tray.setToolTip('Budgie Stream');
+  tray.setContextMenu(contextMenu);
+
+  tray.on('double-click', () => {
+    win.show();
   });
 }
 
