@@ -1,9 +1,9 @@
 {
   "name": "budgie-stream",
   "description": "Stream system output to your Sonos devices",
-  "version": "0.1.3",
+  "version": "0.1.5",
   "author": "Filip Åhfelt",
-  "private": true,
+  "license": "MIT",
   "homepage": "./",
   "main": "public/electron.js",
   "repository": {
@@ -33,7 +33,7 @@
     "react-start": "react-scripts start",
     "react-build": "react-scripts build",
     "electron-build": "electron-builder",
-    "package": "yarn electron-build -c.extraMetadata.main=build/electron.js --publish never",
+    "package": "electron-build -c.extraMetadata.main=build/electron.js --publish never",
     "build": "yarn react-build && yarn package",
     "start": "concurrently \"cross-env BROWSER=none npm run react-start\" \"wait-on http://localhost:3000 && electron . \"",
     "lint": "eslint './src/**/*.{js,jsx}'",

@@ -1,9 +1,10 @@
 const { app, BrowserWindow, Menu, Tray } = require('electron');
-//const { autoUpdater } = require('electron-updater');
+const { autoUpdater } = require('electron-updater');
 const path = require('path');
 const isDev = require('electron-is-dev');
 const { ipcMain } = require('electron');
 var ip = require('ip');
+let tray = null;
 
 function createWindow() {
   // Create the browser window.
@@ -31,17 +32,13 @@ function createWindow() {
     win.webContents.openDevTools();
   }
 
-  win.once('ready-to-show', () => {
-    autoUpdater.checkForUpdatesAndNotify();
-  });
-
   win.on('minimize', (e) => {
     e.preventDefault();
     win.hide();
   });
 
   win.on('close', (e) => {
-    if(!app.isQuiting){
+    if (!app.isQuiting) {
       e.preventDefault();
       win.hide();
     }
@@ -52,18 +49,20 @@ function createWindow() {
   var contextMenu = Menu.buildFromTemplate([
     {
       label: 'Open',
-      click: function() {
+      click: function () {
         win.show();
-    }},
+      },
+    },
     {
       label: 'Quit',
-      click: function() {
+      click: function () {
         app.isQuiting = true;
         app.quit();
-    }}
+      },
+    },
   ]);
 
-  var tray = new Tray(path.join(__dirname, 'icon.png'));
+  tray = new Tray(path.join(__dirname, 'icon.png'));
   tray.setToolTip('Budgie Stream');
   tray.setContextMenu(contextMenu);
 
@@ -76,6 +75,10 @@ function createWindow() {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(createWindow);
+
+app.on('ready', function () {
+  autoUpdater.checkForUpdatesAndNotify();
+});
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
@@ -100,18 +103,6 @@ ipcMain.on('appInfo', (event) => {
     appVersion: app.getVersion(),
   });
 });
-
-ipcMain.on('restart_app', () => {
-  autoUpdater.quitAndInstall();
-});
-
-/* autoUpdater.on('update-available', () => {
-  win.webContents.send('update_available');
-});
-
-autoUpdater.on('update-downloaded', () => {
-  win.webContents.send('update_downloaded');
-}); */
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
