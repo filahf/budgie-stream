@@ -66,7 +66,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 ### TODO
-- [ ] Implement auto update
+- [x] Implement auto update
 - [ ] Improve documentation 
 - [ ] Improve group volume control
 - [ ] Source selection
