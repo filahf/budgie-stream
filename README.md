@@ -80,7 +80,7 @@
 The project is built using Electron/React/Express. The image above shows the simplified flow of audio data, from capture to playback on your Sonos device.
 
 #### Capture
-The project utilizes electrons [desktopCapturer](https://www.electronjs.org/docs/api/desktop-capturer) to capture raw audio. The stream of raw audio is in the form of 32 bit float.
+The project utilizes electrons [desktopCapturer](https://www.electronjs.org/docs/api/desktop-capturer) to capture raw audio. The stream of raw audio is captured in the format of 32 bit float.
 #### Conversion
 The server expects a stream of 16 bit signed integer. Hence the conversion before sending the stream to the server. 
 
