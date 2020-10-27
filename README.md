@@ -49,7 +49,6 @@
 ## Table of Contents
 
 * [About the Project](#about-the-project)
-  * [TODO](#todo)
   * [Technology](#Technology)
   * [Built With](#built-with)
 * [Dev Environment](#dev-environment)
@@ -65,14 +64,6 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-### TODO
-- [x] Implement auto update
-- [ ] Improve documentation 
-- [ ] Improve group volume control
-- [ ] Source selection
-- [ ] Reduce latency
-- [ ] Linux/Mac client
-
 ### Technology
 <p align="center">
 <img src="images/flowdiagram.png" alt="screenshot" height="300">
