@@ -1,18 +1,18 @@
 (function () {
-  'use strict';
-  var cors = require('cors');
-  var express = require('express');
-  var http = require('http');
-  var icecast = require('icecast-stack');
-  var ip = require('ip');
-  var lame = require('@suldashi/lame');
-  var stream = new require('stream');
-  const Store = require('electron-store');
+  "use strict";
+  var cors = require("cors");
+  var express = require("express");
+  var http = require("http");
+  var icecast = require("icecast-stack");
+  var ip = require("ip");
+  var lame = require("@suldashi/lame");
+  var stream = new require("stream");
+  const Store = require("electron-store");
   const store = new Store();
   // 16-bit signed samples
   var SAMPLE_SIZE = 16,
     CHANNELS = 2,
-    SAMPLE_RATE = store.get('samplerate') / 2 || 24000;
+    SAMPLE_RATE = store.get("samplerate") / 2 || 24000;
 
   // If we're getting raw PCM data as expected, calculate the number of bytes
   // that need to be read for `1 Second` of audio data.
@@ -26,9 +26,9 @@
     app.use(cors());
     this.serverPort = false;
     this.inputStream = inputStream;
-    app.disable('x-powered-by');
+    app.disable("x-powered-by");
 
-    opts.name = 'BudgieStream';
+    opts.name = "BudgieStream";
 
     var throttleStream = stream.PassThrough();
     this._internalStream = throttleStream;
@@ -39,28 +39,28 @@
       var addr = ip.address();
 
       res.status(200);
-      res.set('Content-Type', 'audio/x-mpegurl');
-      res.send('http://' + addr + ':' + this.serverPort + '/listen');
+      res.set("Content-Type", "audio/x-mpegurl");
+      res.send("http://" + addr + ":" + this.serverPort + "/listen");
     }.bind(this);
 
-    app.get('/', playlistEndpoint);
-    app.get('/listen.m3u', playlistEndpoint);
-    app.get('/stream.mp3', playlistEndpoint);
+    app.get("/", playlistEndpoint);
+    app.get("/listen.m3u", playlistEndpoint);
+    app.get("/stream.mp3", playlistEndpoint);
 
     // audio endpoint
     app.get(
-      '/listen',
+      "/listen",
       function (req, res, next) {
-        var acceptsMetadata = req.headers['icy-metadata'] === 1;
+        var acceptsMetadata = req.headers["icy-metadata"] === 1;
 
         // generate response header
         var headers = {
-          'Content-Type': 'audio/mpeg',
-          Connection: 'close',
+          "Content-Type": "audio/mpeg",
+          Connection: "close",
         };
 
         if (acceptsMetadata) {
-          headers['icy-metaint'] = 8192;
+          headers["icy-metaint"] = 8192;
         }
 
         res.writeHead(200, headers);
@@ -80,7 +80,7 @@
 
         var prevMetadata = 0;
         encoder.on(
-          'data',
+          "data",
           function (chunk) {
             if (acceptsMetadata && prevMetadata != this.metadata) {
               res.queueMetadata(this.metadata || opts.name);
@@ -95,11 +95,11 @@
           encoder.write(chunk);
         };
 
-        throttleStream.on('data', callback);
+        throttleStream.on("data", callback);
 
-        req.connection.on('close', function () {
+        req.connection.on("close", function () {
           encoder.end();
-          throttleStream.removeListener('data', callback);
+          throttleStream.removeListener("data", callback);
         });
       }.bind(this)
     );
@@ -110,10 +110,10 @@
     this.server = http.createServer(this.app).listen(
       this.serverPort,
       function () {
-        console.log('Https App started');
+        console.log("Https App started");
         this.serverPort = this.server.address().port;
 
-        if (callback && typeof callback === 'function') {
+        if (callback && typeof callback === "function") {
           callback(this.serverPort);
         }
       }.bind(this)
@@ -135,7 +135,7 @@
   };
 
   Server.prototype.stop = function () {
-    console.log('STOPPING');
+    console.log("STOPPING");
     try {
       this.server.close();
     } catch (err) {}

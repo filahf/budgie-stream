@@ -1,3 +1,3 @@
-const Store = window.require('electron-store');
+const Store = window.require("electron-store");
 
 module.exports = new Store();

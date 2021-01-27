@@ -5,37 +5,33 @@ module.exports = {
     node: true,
   },
   settings: {
-    "react": {
-      "pragma": "React",
-      "version": "detect"
-    }
+    react: {
+      pragma: "React",
+      version: "detect",
+    },
   },
   parserOptions: {
-    parser: 'babel-eslint',
+    parser: "babel-eslint",
     ecmaVersion: 11,
-    sourceType: 'module',
+    sourceType: "module",
   },
-  extends:  [
+  extends: [
     "prettier",
     "prettier/standard",
     "prettier/react",
-    "plugin:react/recommended"
+    "plugin:react/recommended",
   ],
   plugins: ["prettier"],
   // add your custom rules here
   rules: {
-    'react/prop-types': 1,
-      "prettier/prettier": [
-        "error",
-        {
-          "printWidth": 80,
-          "trailingComma": "es5",
-          "semi": true,
-          "jsxSingleQuote": true,
-          "singleQuote": true,
-          "useTabs": true
-        }
-      ]
+    "react/prop-types": 1,
+    "prettier/prettier": [
+      "error",
+      {
+        trailingComma: "es5",
+        jsxSingleQuote: true,
+        singleQuote: true,
+      },
+    ],
   },
-  
 };

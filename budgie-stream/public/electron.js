@@ -1,9 +1,9 @@
-const { app, BrowserWindow, Menu, Tray } = require('electron');
-const { autoUpdater } = require('electron-updater');
-const path = require('path');
-const isDev = require('electron-is-dev');
-const { ipcMain } = require('electron');
-var ip = require('ip');
+const { app, BrowserWindow, Menu, Tray } = require("electron");
+const { autoUpdater } = require("electron-updater");
+const path = require("path");
+const isDev = require("electron-is-dev");
+const { ipcMain } = require("electron");
+var ip = require("ip");
 let tray = null;
 
 function createWindow() {
@@ -23,8 +23,8 @@ function createWindow() {
   // and load the index.html of the app.
   win.loadURL(
     isDev
-      ? 'http://localhost:3000'
-      : `file://${path.join(__dirname, '../build/index.html')}`
+      ? "http://localhost:3000"
+      : `file://${path.join(__dirname, "../build/index.html")}`
   );
 
   // Open the DevTools.
@@ -32,12 +32,12 @@ function createWindow() {
     win.webContents.openDevTools();
   }
 
-  win.on('minimize', (e) => {
+  win.on("minimize", (e) => {
     e.preventDefault();
     win.hide();
   });
 
-  win.on('close', (e) => {
+  win.on("close", (e) => {
     if (!app.isQuiting) {
       e.preventDefault();
       win.hide();
@@ -48,13 +48,13 @@ function createWindow() {
 
   var contextMenu = Menu.buildFromTemplate([
     {
-      label: 'Open',
+      label: "Open",
       click: function () {
         win.show();
       },
     },
     {
-      label: 'Quit',
+      label: "Quit",
       click: function () {
         app.isQuiting = true;
         app.quit();
@@ -62,11 +62,11 @@ function createWindow() {
     },
   ]);
 
-  tray = new Tray(path.join(__dirname, 'icon.png'));
-  tray.setToolTip('Budgie Stream');
+  tray = new Tray(path.join(__dirname, "icon.png"));
+  tray.setToolTip("Budgie Stream");
   tray.setContextMenu(contextMenu);
 
-  tray.on('double-click', () => {
+  tray.on("double-click", () => {
     win.show();
   });
 }
@@ -76,20 +76,20 @@ function createWindow() {
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(createWindow);
 
-app.on('ready', function () {
+app.on("ready", function () {
   autoUpdater.checkForUpdatesAndNotify();
 });
 
 // Quit when all windows are closed.
-app.on('window-all-closed', () => {
+app.on("window-all-closed", () => {
   // On macOS it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
-  if (process.platform !== 'darwin') {
+  if (process.platform !== "darwin") {
     app.quit();
   }
 });
 
-app.on('activate', () => {
+app.on("activate", () => {
   // On macOS it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (BrowserWindow.getAllWindows().length === 0) {
@@ -97,8 +97,8 @@ app.on('activate', () => {
   }
 });
 
-ipcMain.on('appInfo', (event) => {
-  event.sender.send('appInfo', {
+ipcMain.on("appInfo", (event) => {
+  event.sender.send("appInfo", {
     ip: ip.address(),
     appVersion: app.getVersion(),
   });
@@ -106,5 +106,5 @@ ipcMain.on('appInfo', (event) => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
-require('./server/index.js');
-require('./server/sonosUtils');
+require("./server/index.js");
+require("./server/sonosUtils");
